@@ -55,6 +55,8 @@ Rest of test cases in `day-8-non-repeating-letter/solution.test.ts`
 
 #### Code
 
+[day-8-non-repeating-letter/solution.ts](day-8-non-repeating-letter/solution.ts)
+
 ```ts
 export function findUniqueToy(toy: string): string {
     const array = Array.from(toy);
@@ -86,6 +88,8 @@ export function findUniqueToy(toy: string): string {
 ```
 
 #### Tests
+
+[day-8-non-repeating-letter/solution.test.ts](day-8-non-repeating-letter/solution.test.ts)
 
 ```ts
 import { describe, it } from "node:test";
