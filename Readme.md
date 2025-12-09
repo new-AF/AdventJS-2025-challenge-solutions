@@ -31,6 +31,8 @@ pnpm test
 
 ## Day 8 (Find first non-repeating letter)
 
+![screenshot of day 8 problem and my solution having passed](https://github.com/new-AF/AdventJS-2025-challenge-solutions/blob/main/.github/images/day-8-intro.png?raw=true)
+
 [https://adventjs.dev/challenges/2025/8](https://adventjs.dev/challenges/2025/8)
 
 The challenge is `findUniqueToy(toy: string): string` should return the first non-repeating letter (regardless of casing) in a string. If all letters are repeated, the function should return an empty string. e.g.
