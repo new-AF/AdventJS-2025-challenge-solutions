@@ -1,0 +1,22 @@
+{
+    "name": "adventjs-2025-challenge-solutions",
+    "version": "1.0.0",
+    "type": "module",
+    "description": "",
+    "scripts": {
+        "day-8-non-repeating-letter": "tsx solution.ts",
+        "day-8-non-repeating-letter:test": "node --watch --test --import tsx day-8-non-repeating-letter/solution.test.ts"
+    },
+    "keywords": [
+        "challenge",
+        "adventjs"
+    ],
+    "author": "Abdullah Fatota",
+    "dependencies": {
+        "tsx": "^4.21.0"
+    },
+    "devDependencies": {
+        "@types/node": "^24.10.2",
+        "typescript": "^5.9.3"
+    }
+}
