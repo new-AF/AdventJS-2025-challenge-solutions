@@ -1,8 +1,12 @@
 /*
 Find first non repeating letter (regardless of casing) in a string.
-return empty string if all letters are repeated.
+return empty string if all letters are repeated. e.g. 
 
-solution: use hash table, mark all letters if loweCcase occurred. Find first one with no occurrences.
+- "Gift" should return "G",
+- "sS" sould return "",
+- "reindeeR" should return "i",
+
+solution: use dictionary, mark all letters if loweCcase occurred. Then go back again and find first one with no occurrences.
 */
 
 export function findUniqueToy(toy: string): string {
