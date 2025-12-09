@@ -3,7 +3,7 @@
   - [Run All Tests](#run-all-tests)
   - [Day 8 (Find first non-repeating letter)](#day-8-find-first-non-repeating-letter)
     - [Solution](#solution)
-    - [Code](#code)
+      - [Code](#code)
     - [Runtime complexity](#runtime-complexity)
     - [Space complexity](#space-complexity)
     - [Improvements](#improvements)
@@ -52,7 +52,7 @@ Rest of test cases in `day-8-non-repeating-letter/solution.test.ts`
 
 3.  Do another pass, and break out of the function at the first letter that is marked as having no duplicates by referencing the dictionary.
 
-### Code
+#### Code
 
 ```ts
 export function findUniqueToy(toy: string): string {
