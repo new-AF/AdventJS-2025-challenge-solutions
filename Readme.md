@@ -4,6 +4,7 @@
   - [Day 8 (Find first non-repeating letter)](#day-8-find-first-non-repeating-letter)
     - [Solution](#solution)
       - [Code](#code)
+      - [Tests](#tests)
     - [Runtime complexity](#runtime-complexity)
     - [Space complexity](#space-complexity)
     - [Improvements](#improvements)
@@ -82,6 +83,35 @@ export function findUniqueToy(toy: string): string {
 
     return "";
 }
+```
+
+#### Tests
+
+```ts
+import { describe, it } from "node:test";
+import { strictEqual } from "node:assert/strict";
+import { findUniqueToy } from "./solution.ts";
+
+const itCases = {
+    Gift: "G",
+    sS: "",
+    reindeeR: "i",
+    AaBbCc: "",
+    abcDEF: "a",
+    aAaAaAF: "F",
+    sTreSS: "T",
+    z: "z",
+};
+describe(findUniqueToy.name, () => {
+    Object.entries(itCases).forEach(([input, expectedOutput]) => {
+        const result = findUniqueToy(input);
+        const testFunction = () => strictEqual(result, expectedOutput);
+        it(
+            `${findUniqueToy.name}(${input}) should return >${expectedOutput}<`,
+            testFunction
+        );
+    });
+});
 ```
 
 ### Runtime complexity
