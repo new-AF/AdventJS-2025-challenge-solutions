@@ -1,14 +1,11 @@
 /*
 Find first non repeating letter (regardless of casing) in a string.
 return empty string if all letters are repeated.
-*/
-export function findUniqueToy(toy: string) {
-    // Code here
-    return solution(toy);
-}
 
-// hash table, mark all letters if loweCcase occurred. Find first one with no occurrences.
-const solution = (toy: string): string => {
+solution: use hash table, mark all letters if loweCcase occurred. Find first one with no occurrences.
+*/
+
+export function findUniqueToy(toy: string): string {
     const array = Array.from(toy);
 
     // has a lowerCase ketter occurred before.
@@ -34,4 +31,4 @@ const solution = (toy: string): string => {
     }
 
     return "";
-};
+}
