@@ -1,0 +1,24 @@
+Today I solved day 8 of the 2025 AdventJS coding challenge:
+
+https://adventjs.dev/challenges/2025/8
+
+The challenge is to return the first non-repeating letter (regardless of casing) in a string. If all letters are repeated, return an empty string. For example:
+
+-   "Gift" should return "G"
+-   "sS" should return ""
+-   "reindeeR" should return "i"
+
+Overall a straightforward problem, and my TypeScript solution is to:
+
+1.  Use a dictionary (JS Object {})
+2.  Iterate over the entire string and mark if the lowercase letter occurred before. 
+
+We have to run the entire length of the string, because the first non-repeating letter could be the last e.g. "aaaaaaaaaaaab"
+
+3.  Do another pass, and break out of the function at the first letter that has no duplicate appearances.
+
+- Time complexity is O(n) assuming dictionary insertion and retrieval is O(1).
+- Space complexity is O(n) as O(1) for the dictionary itself, and O(n) for the extra array allocation.
+
+The solution as well as more details about the solution at my github repo at:
+

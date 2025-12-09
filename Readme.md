@@ -1,12 +1,23 @@
-- [Run Individual Test Suites](#run-individual-test-suites)
-- [Run All Tests](#run-all-tests)
-- [Day 8 (First non-repeating letter)](#day-8-first-non-repeating-letter)
-  - [Solution](#solution)
-  - [Runtime complexity](#runtime-complexity)
-  - [Space complexity](#space-complexity)
-  - [Improvements](#improvements)
+- [Intro](#intro)
+  - [Run Individual Test Suites](#run-individual-test-suites)
+  - [Run All Tests](#run-all-tests)
+  - [Day 8 (Find first non-repeating letter)](#day-8-find-first-non-repeating-letter)
+    - [Solution](#solution)
+    - [Code](#code)
+    - [Runtime complexity](#runtime-complexity)
+    - [Space complexity](#space-complexity)
+    - [Improvements](#improvements)
+
+# Intro
+
+These are my TypeScript solutions to the [AdventJS 2025 coding challenge](https://adventjs.dev/challenges/2025) :)
 
 ## Run Individual Test Suites
+
+```bash
+git clone https://github.com/new-AF/AdventJS-2025-challenge-solutions
+cd AdventJS-2025-challenge-solutions
+```
 
 ```bash
 pnpm day-8-non-repeating-letter
@@ -18,15 +29,17 @@ pnpm day-8-non-repeating-letter
 pnpm test
 ```
 
-## Day 8 (First non-repeating letter)
+## Day 8 (Find first non-repeating letter)
+
+[https://adventjs.dev/challenges/2025/8](https://adventjs.dev/challenges/2025/8)
 
 The challenge is `findUniqueToy(toy: string): string` should return the first non-repeating letter (regardless of casing) in a string. If all letters are repeated, the function should return an empty string. e.g.
 
-| Input        | Should return |
-| ------------ | ------------- |
-| `"Gift"`     | `"G"`         |
-| `"sS"`       | `""`          |
-| `"reindeeR"` | `"i"`         |
+-   `"Gift"` should return `"G"`
+-   `"sS"` should return `""`
+-   `"reindeeR"` should return `"i"`
+
+Rest of test cases in `day-8-non-repeating-letter/solution.test.ts`
 
 ### Solution
 
@@ -37,18 +50,57 @@ The challenge is `findUniqueToy(toy: string): string` should return the first no
 
 3.  Do another pass, and break out of the function at the first letter that is marked as having no duplicates by referencing the dictionary.
 
+### Code
+
+```ts
+export function findUniqueToy(toy: string): string {
+    const array = Array.from(toy);
+
+    // has a lowerCase ketter occurred before.
+    const hasOccuredBefore: Record<string, boolean> = {};
+
+    // run through the whole string, and mark if a lowerCase occured before.
+    array.forEach((letter) => {
+        const lowerCase = letter.toLowerCase();
+        if (Object.hasOwn(hasOccuredBefore, lowerCase)) {
+            hasOccuredBefore[lowerCase] = true;
+            return;
+        }
+
+        hasOccuredBefore[lowerCase] = false;
+    });
+
+    // find first one that has no occurrences.
+    for (const letter of array) {
+        const lowerCase = letter.toLowerCase();
+        if (!hasOccuredBefore[lowerCase]) {
+            return letter;
+        }
+    }
+
+    return "";
+}
+```
+
 ### Runtime complexity
 
-Assuming the JS Object key insertion and retrieval is O(1) then
+Assuming the dictionary key insertion and retrieval is O(1) then:
 
 > `findUniqueToy` runs in **O(n)** or linear time, because:
 
--   Dictionary construction is O(n) because we iterate over the entire string, and query n times, and insert n times.
--
+-   Dictionary construction is O(n) because we iterate over the entire string, and do n queries and insertions.
+-   O(n) for the final pass, doing n dictionary retrievals.
 
 ### Space complexity
 
-Likewise O(n) because we the size of the dictionary is O(n;p)
+Overall space complexity is **O(n)** because:
+
+-   Dictionary size is O(1) or constant time due to fixed size of alphabet.
+-   O(n) for extra array allocation `const array = Array.from(toy);`
+
+    > We could get rid of the extra allocation, and bring overall space complexity to O(1) but we would have to use a regular `for` loop instead of the `forEach` array method (because strings in JS don't have a native `forEach`)
+    >
+    > To me that's an acceptable tradeoff because I gain extra code _readability_: `forEach` explicitly states that we run the _entire_ length of the string, and there's no early exit as would be possible with a traditional `for` loop.
 
 ### Improvements
 
