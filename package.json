@@ -4,8 +4,8 @@
     "type": "module",
     "description": "",
     "scripts": {
-        "day-8-non-repeating-letter": "tsx solution.ts",
-        "day-8-non-repeating-letter:test": "node --watch --test --import tsx day-8-non-repeating-letter/solution.test.ts"
+        "day-8-non-repeating-letter": "node --watch --test --import tsx day-8-non-repeating-letter/solution.test.ts",
+        "test": "node --watch --test --import tsx day-*/**.test.ts"
     },
     "keywords": [
         "challenge",

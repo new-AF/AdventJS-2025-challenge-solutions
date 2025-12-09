@@ -1,6 +1,6 @@
 import { describe, it } from "node:test";
 import { strictEqual } from "node:assert/strict";
-import { findUniqueToy } from "./solution.js";
+import { findUniqueToy } from "./solution.ts";
 
 const itCases = {
     Gift: "G",
