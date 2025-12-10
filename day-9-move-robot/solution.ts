@@ -109,7 +109,12 @@ export const moveReno = (board: Board, moves: Moves): Result => {
         const { row, column } = moveFn(boardInfo.robotCoordinates);
 
         // Robot wandered off the board.
-        if (row >= boardInfo.rowCount || column >= boardInfo.columnCount) {
+        if (
+            row < 0 ||
+            column < 0 ||
+            row >= boardInfo.rowCount ||
+            column >= boardInfo.columnCount
+        ) {
             return "crash";
         }
 
@@ -122,15 +127,11 @@ export const moveReno = (board: Board, moves: Moves): Result => {
         if (element === BoardElement.Pick) {
             return "success";
         }
-        if (element === BoardElement.Robot) {
-            // success i guess
-            return "success";
-        }
 
         boardInfo.robotCoordinates = { row, column };
     }
 
-    // Robot ended on empty spot
+    // Robot ended on empty spot, or in same place
     return "fail";
 
     debugger;
