@@ -1,11 +1,11 @@
 /*
-Move the robot on the 2D originalBoard, using input string as control.
+Move the robot on the 2D board, using input string as control.
 
 Return the following accordingly:
 
 - @ is our robot 
 - * is something to pick, return 'success' immediately.
-- # is obstacle , return 'crash' immediately', or when robot goes outside originalBoard.
+- # is obstacle , return 'crash' immediately', or when robot goes outside board.
 - . is an empty spot, exhaust input and return 'fail' if robot ends here. Example:
 
 Board:
@@ -20,7 +20,7 @@ Input, and expected out:
 - RU (Right,Up), hit obstacle (#), returns 'crash' immediately
 
 Solution:
-- Convert string originalBoard to 2D array
+- Convert string board to 2D array
 - Find initial robot location
 - Follow control moves, and apply result logic.
 
@@ -30,7 +30,7 @@ export type Board = string;
 export type Moves = string;
 export type Result = "fail" | "crash" | "success";
 
-export const moveReno = (originalBoard: Board, moves: Moves): Result => {
+export const moveReno = (board: Board, moves: Moves): Result => {
     enum BoardElement {
         Empty = ".",
         Pick = "*",
@@ -85,7 +85,7 @@ export const moveReno = (originalBoard: Board, moves: Moves): Result => {
     };
 
     // board representation (as 2d array)
-    const board = {} as {
+    const newBoard = {} as {
         rowCount: number;
         columnCount: number;
         array2d: Array<Array<BoardElement>>;
@@ -93,21 +93,22 @@ export const moveReno = (originalBoard: Board, moves: Moves): Result => {
     };
 
     // convert to 2d array. Space complexity: O(m * n)
-    board.array2d = originalBoard
+    newBoard.array2d = board
         .trim()
         .split("\n")
         .map((line) =>
             Array.from(line).map((character) => characterToElement[character])
         );
 
-    board.rowCount = board.array2d.length;
-    board.columnCount = board.array2d.length > 0 ? board.array2d[0].length : 0;
+    newBoard.rowCount = newBoard.array2d.length;
+    newBoard.columnCount =
+        newBoard.array2d.length > 0 ? newBoard.array2d[0].length : 0;
 
     // find initial robot location. Runtime: O(m * n)
-    for (const [row, array] of board.array2d.entries()) {
+    for (const [row, array] of newBoard.array2d.entries()) {
         for (const [column, element] of array.entries()) {
             if (element === BoardElement.Robot) {
-                board.robotCoordinates = { row, column };
+                newBoard.robotCoordinates = { row, column };
                 break;
             }
         }
@@ -119,20 +120,20 @@ export const moveReno = (originalBoard: Board, moves: Moves): Result => {
     )) {
         // get move function, and next location
         const moveFn = moveFunctions[move];
-        const { row, column } = moveFn(board.robotCoordinates);
+        const { row, column } = moveFn(newBoard.robotCoordinates);
 
-        // Robot wandered off the board
+        // Robot wandered off the newBoard
         if (
             row < 0 ||
             column < 0 ||
-            row >= board.rowCount ||
-            column >= board.columnCount
+            row >= newBoard.rowCount ||
+            column >= newBoard.columnCount
         ) {
             return "crash";
         }
 
-        // otherwise robot still on board
-        const element = board.array2d[row][column];
+        // otherwise robot still on newBoard
+        const element = newBoard.array2d[row][column];
 
         if (element === BoardElement.Obstacle) {
             return "crash";
@@ -142,7 +143,7 @@ export const moveReno = (originalBoard: Board, moves: Moves): Result => {
         }
 
         // update location
-        board.robotCoordinates = { row, column };
+        newBoard.robotCoordinates = { row, column };
     }
 
     // Robot ended on empty spot, or back to same place

@@ -1,24 +1,30 @@
-- [Intro](#intro)
-  - [Run Individual Test Suites](#run-individual-test-suites)
-  - [Run All Tests](#run-all-tests)
-  - [Day 8 (Find first non-repeating letter)](#day-8-find-first-non-repeating-letter)
-    - [Solution](#solution)
-      - [Code](#code)
-      - [Tests](#tests)
-    - [Runtime complexity](#runtime-complexity)
-    - [Space complexity](#space-complexity)
-    - [Improvements](#improvements)
+-   [Intro](#intro)
+-   [Install](#install)
+    -   [Run Individual Test Suites](#run-individual-test-suites)
+    -   [Run All Tests](#run-all-tests)
+-   [Overview](#overview)
+    -   [Day 8 (Find first non-repeating letter)](#day-8-find-first-non-repeating-letter)
+        -   [Solution](#solution)
+            -   [Code](#code)
+            -   [Tests](#tests)
+        -   [Runtime complexity](#runtime-complexity)
+        -   [Space complexity](#space-complexity)
+        -   [Improvements](#improvements)
+    -   [Day 9: Move robot (hard)](#day-9-move-robot-hard)
 
 # Intro
 
 These are my TypeScript solutions to the [AdventJS 2025 coding challenge](https://adventjs.dev/challenges/2025) :)
 
-## Run Individual Test Suites
+# Install
 
 ```bash
 git clone https://github.com/new-AF/AdventJS-2025-challenge-solutions
 cd AdventJS-2025-challenge-solutions
+pnpm install
 ```
+
+## Run Individual Test Suites
 
 ```bash
 pnpm day-8-non-repeating-letter
@@ -29,6 +35,16 @@ pnpm day-8-non-repeating-letter
 ```bash
 pnpm test
 ```
+
+# Overview
+
+| Day | Challenge                                                                            | Solution                                                                                    | Space Complexity |     |
+| --- | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------- | ---------------- | --- |
+|     |                                                                                      |                                                                                             |                  |     |
+| 9   | Move the robot on a 2D board, using input string as control, and return some status. | Convert the board to a 2D array, find the robot, initial location and follow move commands. |
+|     |                                                                                      |                                                                                             |
+|     |                                                                                      |                                                                                             |
+|     |                                                                                      |                                                                                             |                  |     |
 
 ## Day 8 (Find first non-repeating letter)
 
@@ -150,3 +166,5 @@ Instead of the ambiguous empty string (`""`) on failure, the function should alw
 ```
 
 This will explicitly tell if the string had any non-repeating letters. If all the letters are repeated `success` would be `false`, and we wouldn't return `value`
+
+## Day 9: Move robot (hard)
