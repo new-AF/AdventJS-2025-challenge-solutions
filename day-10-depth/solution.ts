@@ -16,13 +16,12 @@ export const maxDepth = (s: string): number => {
         // debugger;
     }
 
-    const stackInfo = { stackCounter: 0, currentDepth: 0, maximumDepth: 0 };
+    const stackInfo = { currentDepth: 0, maximumDepth: 0 };
 
     for (const character of s) {
         // push
         if (character === "[") {
-            stackInfo.stackCounter += 1;
-            stackInfo.currentDepth = stackInfo.stackCounter;
+            stackInfo.currentDepth += 1;
 
             // save maximum depth so far
             stackInfo.maximumDepth = Math.max(
