@@ -6,6 +6,7 @@
     "scripts": {
         "day-8-non-repeating-letter": "node --watch --test --import tsx day-8-non-repeating-letter/solution.test.ts",
         "day-9-move-robot": "node --watch --test --import tsx day-9-move-robot/solution.test.ts",
+        "day-10-depth": "node --watch --test --import tsx day-10-depth/solution.test.ts",
         "test": "node --watch --test --import tsx day-*/**.test.ts"
     },
     "keywords": [
