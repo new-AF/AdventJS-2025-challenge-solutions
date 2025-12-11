@@ -6,7 +6,7 @@ If input is malformed, return -1
 Solution:
 Use a metaphorical stack, and keep two variables:
 1) current depth, measured by opened
-2) maximum that current depth 
+2) maximum that current depth has ever been
 
 
 
@@ -16,12 +16,14 @@ export const maxDepth = (s: string): number => {
         // debugger;
     }
 
-    const stackInfo = { currentDepth: 0, maximumDepth: 0 };
+    const stackInfo = { stackCounter: 0, currentDepth: 0, maximumDepth: 0 };
 
     for (const character of s) {
         // push
         if (character === "[") {
-            stackInfo.currentDepth += 1;
+            stackInfo.stackCounter += 1;
+            stackInfo.currentDepth = stackInfo.stackCounter;
+
             // save maximum depth so far
             stackInfo.maximumDepth = Math.max(
                 stackInfo.currentDepth,
