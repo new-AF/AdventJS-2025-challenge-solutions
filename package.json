@@ -8,6 +8,7 @@
         "day-9-move-robot": "node --watch --test --import tsx day-9-move-robot/solution.test.ts",
         "day-10-depth": "node --watch --test --import tsx day-10-depth/solution.test.ts",
         "day-11-unwatched-gifts": "node --watch --test --import tsx day-11-unwatched-gifts/solution.test.ts",
+        "day-12-elf-battle": "node --watch --test --import tsx day-12-elf-battle/solution.test.ts",
         "test": "node --watch --test --import tsx day-*/**.test.ts"
     },
     "keywords": [
