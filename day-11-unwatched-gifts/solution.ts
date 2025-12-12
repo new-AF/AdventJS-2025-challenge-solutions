@@ -2,7 +2,7 @@
 The word 'unsafe' has  bad connotations.
 
 solution:
-- Find gift index in string,
+- Find gifts in a string/row,
 - Check at most 4 other locations, left, right, up, down
 - if none of them contain camera, add +1 
 */
