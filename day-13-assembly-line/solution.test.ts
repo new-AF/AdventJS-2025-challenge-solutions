@@ -9,7 +9,7 @@ const itCases = [
     { factory: [">>v", "..<"], expectedOutput: "completed" },
     { factory: [">>v", "<<<"], expectedOutput: "broken" },
     { factory: [">v.", "^.."], expectedOutput: "completed" },
-    { factory: [">v.", "^.."], expectedOutput: "loop" },
+    { factory: ["v.", "^."], expectedOutput: "loop" },
 ];
 
 describe("runFactory(factory)", () => {
