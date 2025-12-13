@@ -75,39 +75,37 @@ export const runFactory = (factory: Factory): Result => {
     while (status.row < boardInfo.height) {
         const line = factory[status.row];
         // if (line === "v.") debugger;
-        while (status.column < boardInfo.width) {
-            const character = line[status.column];
+        const character = line[status.column];
 
-            // loop detection
-            const key = makeKey({ row: status.row, column: status.column });
-            if (status.visitedLocations.has(key)) {
-                return "loop";
-            }
-            status.visitedLocations.add(key);
-
-            const result = processCharacter[character]({
-                ...status,
-                ...boardInfo,
-            });
-
-            if (result && result.returnStatus) {
-                return result.returnStatus;
-            }
-
-            status.previousCharacter = character;
-
-            // debugger;
-
-            // go up or down
-            if (result && result.changeLine) {
-                status.row = result.row;
-                break;
-            }
-
-            status.column =
-                result && result.decrementColumn
-                    ? status.column - 1
-                    : status.column + 1;
+        // loop detection
+        const key = makeKey({ row: status.row, column: status.column });
+        if (status.visitedLocations.has(key)) {
+            return "loop";
         }
+        status.visitedLocations.add(key);
+
+        const result = processCharacter[character]({
+            ...status,
+            ...boardInfo,
+        });
+
+        if (result && result.returnStatus) {
+            return result.returnStatus;
+        }
+
+        status.previousCharacter = character;
+
+        // debugger;
+
+        // go up or down
+        if (result && result.changeLine) {
+            status.row = result.row;
+            continue;
+        }
+
+        status.column =
+            result && result.decrementColumn
+                ? status.column - 1
+                : status.column + 1;
     }
 };
