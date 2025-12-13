@@ -8,8 +8,7 @@ type Factory = string[];
 type Result = "completed" | "broken" | "loop";
 
 export const runFactory = (factory: Factory): Result => {
-    // > < ^ v
-    type Instruction = string;
+    type Instruction = ">" | "<" | "^" | "v" | ".";
 
     // assembly line outcome
     enum Outcome {
