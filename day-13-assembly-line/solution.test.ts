@@ -3,6 +3,18 @@ import { strictEqual } from "node:assert/strict";
 import { runFactory } from "./solution.ts";
 
 const itCases = [
+    {
+        factory:
+            /* classic loop
+            [
+            ">v",
+            "^<",
+            ]
+        */
+            [">v", "^<"],
+        expectedOutput: "loop",
+    },
+    { factory: ["."], expectedOutput: "completed" },
     { factory: [">>."], expectedOutput: "completed" },
     { factory: [">>>"], expectedOutput: "broken" },
     { factory: [">><"], expectedOutput: "loop" },

@@ -10,63 +10,46 @@ type Result = "completed" | "broken" | "loop";
 export const runFactory = (factory: Factory): Result => {
     // Code here
 
+    type LocationKey = string;
+
+    const makeKey = ({ row, column }): LocationKey => `${row}, ${column}`;
+
     const processCharacter = {
-        ".": ({ column }) => {
-            if (column === 0) {
-                return { returnStatus: "broken" };
-            }
+        ".": ({}) => {
             // assuming all other rules hold
             return { returnStatus: "completed" };
         },
 
-        ">": ({ column, width, previousCharacter }) => {
+        ">": ({ column, width }) => {
             // out of bounds
             if (column >= width - 1) {
                 return { returnStatus: "broken" };
             }
-            // prevent loops
-            if (previousCharacter === "<") {
-                return { returnStatus: "loop" };
-            }
         },
 
-        "<": ({ column, previousCharacter }) => {
+        "<": ({ column }) => {
             // out of bounds
             if (column === 0) {
                 return { returnStatus: "broken" };
             }
-            if (previousCharacter === ">") {
-                return {
-                    returnStatus: "loop",
-                };
-            }
+
             return { decrementColumn: true };
         },
 
-        v: ({ row, height, previousCharacter }) => {
+        v: ({ row, height }) => {
             // out of bounds
             if (row >= height) {
                 return { returnStatus: "broken" };
             }
-            /* prevent loops aka
-                ^
-                v
-            */
-            if (previousCharacter === "^") {
-                return {
-                    returnStatus: "loop",
-                };
-            }
+
             return { changeLine: true, row: row + 1 };
         },
-        "^": ({ row, previousCharacter }) => {
+        "^": ({ row }) => {
             // out of bounds
             if (row === 0) {
                 return { returnStatus: "broken" };
             }
-            if (previousCharacter === "v") {
-                return { returnStatus: "loop" };
-            }
+
             return { changeLine: true, row: row - 1 };
         },
     };
@@ -74,11 +57,13 @@ export const runFactory = (factory: Factory): Result => {
     const status: {
         row: number;
         column: number;
+        visitedLocations: Set<string>;
         isFirstCharacter: boolean;
         previousCharacter?: string;
     } = {
         row: 0,
         column: 0,
+        visitedLocations: new Set(),
         isFirstCharacter: true,
     };
 
@@ -92,6 +77,13 @@ export const runFactory = (factory: Factory): Result => {
         // if (line === "v.") debugger;
         while (status.column < boardInfo.width) {
             const character = line[status.column];
+
+            // loop detection
+            const key = makeKey({ row: status.row, column: status.column });
+            if (status.visitedLocations.has(key)) {
+                return "loop";
+            }
+            status.visitedLocations.add(key);
 
             const result = processCharacter[character]({
                 ...status,
