@@ -66,17 +66,19 @@ export const runFactory = (factory: Factory): Result => {
         // if (line === "v.") debugger;
         const character = line[state.column];
 
+        const currentLocation = { row: state.row, column: state.column };
+
         // 1) detect loops (if we visited this previously)
-        const key = makeKey({ row: state.row, column: state.column });
+        const key = makeKey(currentLocation);
         if (state.visitedLocations.has(key)) {
             return Status.Loop;
         }
         state.visitedLocations.add(key);
 
         // 2) break early if success
-        const result = stateFunction[character](state);
+        const result = stateFunction[character](currentLocation);
 
-        if (result && result.status) {
+        if (result.status) {
             return result.status;
         }
 
