@@ -8,63 +8,52 @@ type Factory = string[];
 type Result = "completed" | "broken" | "loop";
 
 export const runFactory = (factory: Factory): Result => {
-    // Code here
-
     type LocationKey = string;
 
     const makeKey = ({ row, column }): LocationKey => `${row}, ${column}`;
 
-    const processCharacter = {
-        ".": ({}) => {
-            // assuming all other rules hold
-            return { returnStatus: "completed" };
+    const isOutOfBounds = ({ width, height, row, column }) =>
+        row < 0 || row >= height || column < 0 || column >= width;
+
+    enum Status {
+        Broken = "broken",
+        Completed = "completed",
+        Loop = "loop",
+    }
+
+    const stateFunction = {
+        ".": () => {
+            return { status: Status.Completed };
         },
 
-        ">": ({ column, width }) => {
-            // out of bounds
-            if (column >= width - 1) {
-                return { returnStatus: "broken" };
-            }
+        ">": ({ row, column }) => {
+            // advance column
+            return { row, column: column + 1 };
         },
 
-        "<": ({ column }) => {
-            // out of bounds
-            if (column === 0) {
-                return { returnStatus: "broken" };
-            }
-
-            return { decrementColumn: true };
+        "<": ({ row, column }) => {
+            // move back
+            return { row, column: column - 1 };
         },
 
-        v: ({ row, height }) => {
-            // out of bounds
-            if (row >= height) {
-                return { returnStatus: "broken" };
-            }
-
-            return { changeLine: true, row: row + 1 };
+        v: ({ row, column }) => {
+            // move down
+            return { row: row + 1, column };
         },
-        "^": ({ row }) => {
-            // out of bounds
-            if (row === 0) {
-                return { returnStatus: "broken" };
-            }
-
-            return { changeLine: true, row: row - 1 };
+        "^": ({ row, column }) => {
+            // move up
+            return { row: row - 1, column };
         },
     };
 
-    const status: {
+    const state: {
         row: number;
         column: number;
         visitedLocations: Set<string>;
-        isFirstCharacter: boolean;
-        previousCharacter?: string;
     } = {
         row: 0,
         column: 0,
         visitedLocations: new Set(),
-        isFirstCharacter: true,
     };
 
     const boardInfo = {
@@ -72,40 +61,41 @@ export const runFactory = (factory: Factory): Result => {
         height: factory.length,
     };
 
-    while (status.row < boardInfo.height) {
-        const line = factory[status.row];
+    while (state.row < boardInfo.height) {
+        const line = factory[state.row];
         // if (line === "v.") debugger;
-        const character = line[status.column];
+        const character = line[state.column];
 
-        // loop detection
-        const key = makeKey({ row: status.row, column: status.column });
-        if (status.visitedLocations.has(key)) {
-            return "loop";
+        // 1) detect loops (if we visited this previously)
+        const key = makeKey({ row: state.row, column: state.column });
+        if (state.visitedLocations.has(key)) {
+            return Status.Loop;
         }
-        status.visitedLocations.add(key);
+        state.visitedLocations.add(key);
 
-        const result = processCharacter[character]({
-            ...status,
-            ...boardInfo,
-        });
+        // 2) break early if success
+        const result = stateFunction[character](state);
 
-        if (result && result.returnStatus) {
-            return result.returnStatus;
+        if (result && result.status) {
+            return result.status;
         }
 
-        status.previousCharacter = character;
+        // 3) are new coordinates out of bounds
+        const { row: nextRow, column: nextColumn } = result;
 
+        if (
+            isOutOfBounds({
+                row: nextRow,
+                column: nextColumn,
+                width: boardInfo.width,
+                height: boardInfo.height,
+            })
+        ) {
+            return Status.Broken;
+        }
+
+        state.row = nextRow;
+        state.column = nextColumn;
         // debugger;
-
-        // go up or down
-        if (result && result.changeLine) {
-            status.row = result.row;
-            continue;
-        }
-
-        status.column =
-            result && result.decrementColumn
-                ? status.column - 1
-                : status.column + 1;
     }
 };
