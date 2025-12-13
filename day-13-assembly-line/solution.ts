@@ -98,4 +98,7 @@ export const runFactory = (factory: Factory): Result => {
         state.column = nextColumn;
         // debugger;
     }
+
+    // if factory is empty
+    return Status.Broken;
 };
