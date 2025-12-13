@@ -8,22 +8,34 @@ type Factory = string[];
 type Result = "completed" | "broken" | "loop";
 
 export const runFactory = (factory: Factory): Result => {
-    type LocationKey = string;
+    // > < ^ v
+    type Instruction = string;
 
-    const makeKey = ({ row, column }): LocationKey => `${row}, ${column}`;
-
-    const isOutOfBounds = ({ width, height, row, column }) =>
-        row < 0 || row >= height || column < 0 || column >= width;
-
-    enum Status {
+    // assembly line outcome
+    enum Outcome {
         Broken = "broken",
         Completed = "completed",
         Loop = "loop",
     }
 
-    const stateFunction = {
-        ".": () => {
-            return { status: Status.Completed };
+    type Position = { row: number; column: number };
+
+    type Transition = { outcome: Outcome } | Position;
+
+    // visited locations key
+    const makeKey = ({ row, column }: Position) => `${row}, ${column}`;
+
+    // is next location out of bounds
+    const isOutOfBounds = ({ width, height, row, column }) =>
+        row < 0 || row >= height || column < 0 || column >= width;
+
+    // returns either next coordinates, or assembly line outcome
+    const instructionHandlers: Record<
+        Instruction,
+        (pos: Position) => Transition
+    > = {
+        ".": ({ row, column }) => {
+            return { outcome: Outcome.Completed };
         },
 
         ">": ({ row, column }) => {
@@ -46,14 +58,15 @@ export const runFactory = (factory: Factory): Result => {
         },
     };
 
+    // assembly line state
     const state: {
         row: number;
         column: number;
-        visitedLocations: Set<string>;
+        visitedPositions: Set<string>;
     } = {
         row: 0,
         column: 0,
-        visitedLocations: new Set(),
+        visitedPositions: new Set(),
     };
 
     const boardInfo = {
@@ -63,44 +76,46 @@ export const runFactory = (factory: Factory): Result => {
 
     while (state.row < boardInfo.height) {
         const line = factory[state.row];
-        // if (line === "v.") debugger;
-        const character = line[state.column];
+        const instruction = line[state.column];
 
-        const currentLocation = { row: state.row, column: state.column };
+        // current position
+        const currentPosition: Position = {
+            row: state.row,
+            column: state.column,
+        };
 
         // 1) detect loops (if we visited this previously)
-        const key = makeKey(currentLocation);
-        if (state.visitedLocations.has(key)) {
-            return Status.Loop;
+        const key = makeKey(currentPosition);
+        if (state.visitedPositions.has(key)) {
+            return Outcome.Loop;
         }
-        state.visitedLocations.add(key);
+        state.visitedPositions.add(key);
+
+        // returns either next coordinates, or assembly line outcome
+        const result = instructionHandlers[instruction](currentPosition);
 
         // 2) break early if success
-        const result = stateFunction[character](currentLocation);
-
-        if (result.status) {
-            return result.status;
+        if ("outcome" in result) {
+            return result.outcome;
         }
 
         // 3) are new coordinates out of bounds
-        const { row: nextRow, column: nextColumn } = result;
+        const nextPosition = result;
 
         if (
             isOutOfBounds({
-                row: nextRow,
-                column: nextColumn,
+                ...nextPosition,
                 width: boardInfo.width,
                 height: boardInfo.height,
             })
         ) {
-            return Status.Broken;
+            return Outcome.Broken;
         }
 
-        state.row = nextRow;
-        state.column = nextColumn;
-        // debugger;
+        state.row = nextPosition.row;
+        state.column = nextPosition.column;
     }
 
     // if factory is empty
-    return Status.Broken;
+    return Outcome.Broken;
 };
