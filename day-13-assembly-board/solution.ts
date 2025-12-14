@@ -1,7 +1,20 @@
-/* 
-- "broken" if it hit a wall
-- "completed" if it lands on a "."
-- "loop" if it returns to previous position.
+/*
+
+Day 13: Assembly board
+
+Move a gift using instructions (`string[]`) on a **2D assembly board**, where each `string` is a series of instructions:
+
+-   `'>'` move gift one step right on same row.
+-   `'<'` move gift one step left on same row.
+-   `'v'` move gift one row down.
+-   `'^'` move gift one row up.
+-   `'.'` exit pod.
+
+Return these outcomes, early if possible:
+
+-   `'completed'`, if gift hits an exit spot (`.`)
+-   `'loop'`, if gift returns to a previously visited position.
+-   `'broken'` if gift ends outside of assembly board.
 */
 
 type Factory = string[];

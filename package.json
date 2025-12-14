@@ -9,7 +9,7 @@
         "day-10-depth": "node --watch --test --import tsx day-10-depth/solution.test.ts",
         "day-11-unwatched-gifts": "node --watch --test --import tsx day-11-unwatched-gifts/solution.test.ts",
         "day-12-elf-battle": "node --watch --test --import tsx day-12-elf-battle/solution.test.ts",
-        "day-13-assembly-line": "node --watch --test --import tsx day-13-assembly-line/solution.test.ts",
+        "day-13-assembly-board": "node --watch --test --import tsx day-13-assembly-board/solution.test.ts",
         "test": "node --watch --test --import tsx day-*/**.test.ts"
     },
     "keywords": [
