@@ -178,7 +178,7 @@ This will explicitly tell if the string had any non-repeating letters. If all th
 
 ## Day 13: Assembly board
 
-![screenshot of my day 13 problem and my solution having passed](https://github.com/new-AF/AdventJS-2025-challenge-solutions/blob/main/.github/images/day-13-assembly-line.png?raw=true)
+![screenshot of my day 13 problem and my solution having passed](https://github.com/new-AF/AdventJS-2025-challenge-solutions/blob/main/.github/images/day-13-assembly-board.png?raw=true)
 
 ### Challenge
 
