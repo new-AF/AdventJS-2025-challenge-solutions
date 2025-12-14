@@ -234,8 +234,7 @@ Return these outcomes, early if possible:
 
 -   Check if new position is out of board bounds, and return `'broken'`
 
--   Continue, process next instruction.
--
+-   Continue and process next instruction.
 
 #### Code
 
