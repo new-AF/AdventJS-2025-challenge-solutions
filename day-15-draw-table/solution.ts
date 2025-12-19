@@ -72,7 +72,24 @@ export const drawTable = (data: Data, sortBy: SortBy): string => {
 
     const content: Array<Array<string>> = [];
 
-    // get content (2d array of strings), set column headers, get max width
+    // sort content by required key `sort key`
+    data.sort((objA, objB) => {
+        const [valueA, valueB] = [objA[sortBy], objB[sortBy]];
+
+        if (valueA === undefined || valueB === undefined) {
+            return 0;
+        }
+
+        // if numbers
+        if (typeof valueA === "number" && typeof valueB === "number") {
+            return valueA - valueB;
+        }
+
+        //else strings
+        return String(valueA).localeCompare(String(valueB));
+    });
+
+    // extract cells (2d array of strings), set column headers, get max width
     data.forEach((rowObj) => {
         const inner: Array<string> = [];
 
@@ -113,7 +130,7 @@ export const drawTable = (data: Data, sortBy: SortBy): string => {
         line,
     ];
     const print = output.join("\n");
-    debugger;
+    // debugger;
 
     return print;
 };

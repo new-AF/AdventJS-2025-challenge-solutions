@@ -23,6 +23,27 @@ const itCases = [
 +---------+----------+
 `,
     },
+
+    {
+        input: {
+            array: [
+                { gift: "Book", quantity: 5 },
+                { gift: "Music CD", quantity: 1 },
+                { gift: "Doll", quantity: 10 },
+            ],
+            sortKey: "quantity",
+        },
+
+        expectedOutput: `
++----------+----+
+| A        | B  |
++----------+----+
+| Music CD | 1  |
+| Book     | 5  |
+| Doll     | 10 |
++----------+----+
+`,
+    },
 ];
 
 describe("drawTable(...)", () => {
