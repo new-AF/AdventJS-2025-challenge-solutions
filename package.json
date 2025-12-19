@@ -11,6 +11,7 @@
         "day-12-elf-battle": "node --watch --test --import tsx day-12-elf-battle/solution.test.ts",
         "day-13-assembly-board": "node --watch --test --import tsx day-13-assembly-board/solution.test.ts",
         "day-14-gift-path": "node --watch --test --import tsx day-14-gift-path/solution.test.ts",
+        "day-15-draw-table": "node --watch --test --import tsx day-15-draw-table/solution.test.ts",
         "test": "node --watch --test --import tsx day-*/**.test.ts"
     },
     "keywords": [
