@@ -19,6 +19,7 @@ const itCases = [
             [".", "G", ".", "."],
         ],
         expectedOutput: true,
+        debug: true,
     },
     {
         input: [
@@ -31,7 +32,10 @@ const itCases = [
 ];
 
 describe("hasFourLights(...)", () => {
-    itCases.forEach(({ input, expectedOutput }) => {
+    itCases.forEach(({ input, expectedOutput, debug }) => {
+        if (debug) {
+            // debugger;
+        }
         const result = hasFourLights(input);
         const testFunction = () => strictEqual(result, expectedOutput);
         it(

@@ -1,60 +1,89 @@
+import { deepStrictEqual } from "node:assert";
+
 export const hasFourLights = (board: string[][]): boolean => {
-    // empty board
-    if (board.length === 0) {
-        return false;
-    }
+    type Line = Array<string>;
+    type NormalizedArray = Array<Line>;
 
-    const firstRow = board[0];
+    const isEmptyBoard = (input: string[][]): boolean =>
+        input.length === 0 || input[0].length === 0;
 
-    // empty board [[]]
-    if (firstRow === undefined) {
-        return false;
-    }
+    // checks if any subarray has 4 consecutive lights
+    const hasConsecutiveLights = (input: Line): boolean => {
+        const size = 4;
 
-    const columnCount = firstRow.length;
-    const runSize = 3;
-    let run = 0;
+        // invalid size
+        if (size <= 0) {
+            return false;
+        }
 
-    // scan row-wise; reference row, iterate column-wise.
-    for (const rowArray of board) {
-        for (const [index, cell] of rowArray.entries()) {
-            if (index === 0) {
+        // empty array
+        if (input.length <= 0) {
+            return false;
+        }
+
+        let previous = input[0];
+        let run = 0;
+        for (let index = 1; index < input.length; ++index) {
+            const cell = input[index];
+
+            if (cell === ".") {
+                run = 0;
+                previous = cell;
                 continue;
             }
 
-            const previous = rowArray[index - 1];
-
-            if (previous !== "." && previous === cell) {
+            if (cell === previous) {
                 ++run;
             } else {
                 run = 0;
             }
 
-            if (run === runSize) {
-                return true;
-            }
-        }
-    }
-
-    // scan column-wise; change both column and row index
-    for (let column = 0; column < columnCount; ++column) {
-        for (let row = 1; row < board.length; ++row) {
-            const previous = board[row - 1][column];
-            const cell = board[row][column];
-
-            if (previous !== "." && previous === cell) {
-                ++run;
-            } else {
-                run = 0;
-            }
-
-            if (run === runSize) {
+            if (run === size - 1) {
                 return true;
             }
 
-            // debugger;
+            previous = cell;
         }
-    }
 
-    return false;
+        return false;
+    };
+
+    // just make a copy
+    const getRows = (input: string[][]): NormalizedArray =>
+        input.map((innerArray) => [...innerArray]);
+
+    // get all columns
+    const getColumns = (input: string[][]): NormalizedArray => {
+        const array: NormalizedArray = [];
+
+        if (isEmptyBoard(input)) {
+            return array;
+        }
+
+        const columnCount = input[0]!.length;
+
+        for (let column = 0; column < columnCount; ++column) {
+            const line: Line = [];
+            for (const row of input) {
+                const cell = row[column]!;
+                line.push(cell);
+            }
+            array.push(line);
+        }
+
+        return array;
+    };
+
+    // has all rows, columns of board
+    const normalized: NormalizedArray = [
+        ...getRows(board),
+        ...getColumns(board),
+    ];
+
+    // scan rows, columns
+    const result = normalized.some(hasConsecutiveLights);
+
+    // debugger;
+
+    return result;
 };
