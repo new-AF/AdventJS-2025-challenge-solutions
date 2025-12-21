@@ -1,4 +1,4 @@
-export const hasFourLights = (board: string[][]): boolean => {
+export const hasFourInARow = (board: string[][]): boolean => {
     type Line = Array<string>;
     type NormalizedArray = Array<Line>;
 
@@ -76,10 +76,38 @@ export const hasFourLights = (board: string[][]): boolean => {
         return array;
     };
 
+    // get all diagonals (and anti-diagonals)
+    const getDiagonals = (input: string[][]): NormalizedArray => {
+        const array: NormalizedArray = [];
+
+        if (isEmptyBoard(input)) {
+            return array;
+        }
+
+        const rowCount = input.length;
+        const columnCount = input[0].length;
+        const diagCount = Math.min(rowCount, columnCount);
+
+        const cells: Line = [];
+        const otherCells: Line = [];
+        // same row, column for diagonals, and reversed column index for anti-diagonals
+        for (let index = 0; index < diagCount; ++index) {
+            const singleCell = input[index][index];
+            const singleOtherCell = input[index][columnCount - 1 - index];
+            cells.push(singleCell!);
+            otherCells.push(singleOtherCell!);
+        }
+
+        array.push(cells, otherCells);
+
+        return array;
+    };
+
     // has all rows, columns of board
     const normalized: NormalizedArray = [
         ...getRows(board),
         ...getColumns(board),
+        ...getDiagonals(board),
     ];
 
     // scan rows, columns

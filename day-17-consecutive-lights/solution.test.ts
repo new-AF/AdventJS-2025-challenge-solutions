@@ -1,6 +1,6 @@
 import { describe, it } from "node:test";
 import { strictEqual } from "node:assert/strict";
-import { hasFourLights } from "./solution.ts";
+import { hasFourLights } from "./solution.js";
 
 const itCases = [
     {
@@ -19,7 +19,6 @@ const itCases = [
             [".", "G", ".", "."],
         ],
         expectedOutput: true,
-        debug: true,
     },
     {
         input: [
@@ -32,10 +31,7 @@ const itCases = [
 ];
 
 describe("hasFourLights(...)", () => {
-    itCases.forEach(({ input, expectedOutput, debug }) => {
-        if (debug) {
-            // debugger;
-        }
+    itCases.forEach(({ input, expectedOutput }) => {
         const result = hasFourLights(input);
         const testFunction = () => strictEqual(result, expectedOutput);
         it(

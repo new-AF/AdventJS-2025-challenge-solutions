@@ -14,6 +14,8 @@
         "day-15-draw-table": "node --watch --test --import tsx day-15-draw-table/solution.test.ts",
         "day-16-packing-gifts": "node --watch --test --import tsx day-16-packing-gifts/solution.test.ts",
         "day-17-consecutive-lights": "node --watch --test --import tsx day-17-consecutive-lights/solution.test.ts",
+        "day-18-consecutive-lights-ii": "node --watch --test --import tsx day-18-consecutive-lights-ii/solution.test.ts",
+        "day-20-vertical-warehouse": "node --watch --test --import tsx day-20-vertical-warehouse/solution.test.ts",
         "test": "node --watch --test --import tsx day-*/**.test.ts"
     },
     "keywords": [
