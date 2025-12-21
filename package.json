@@ -5,6 +5,7 @@
     "description": "",
     "scripts": {
         "day-1-filter-gifts": "node --watch --test --import tsx day-1-filter-gifts/solution.test.ts",
+        "day-2-make-toys": "node --watch --test --import tsx day-2-make-toys/solution.test.ts",
         "day-8-non-repeating-letter": "node --watch --test --import tsx day-8-non-repeating-letter/solution.test.ts",
         "day-9-move-robot": "node --watch --test --import tsx day-9-move-robot/solution.test.ts",
         "day-10-depth": "node --watch --test --import tsx day-10-depth/solution.test.ts",
