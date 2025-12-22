@@ -28,6 +28,20 @@ export const canEscape = (maze: string[][]): boolean => {
     // to avoid loops
     const visitedCells = new Set<PositionKey>();
 
+    //
+    const getStartPosition = (currentMaze: string[][]): Position | null => {
+        for (const [row, array] of currentMaze.entries()) {
+            for (const [column, cell] of array.entries()) {
+                if (cell === "S") {
+                    return { direction: Direction.Start, row, column };
+                }
+            }
+        }
+
+        // malformed input
+        return null;
+    };
+
     // because Set doesn't work with objects
     const makePositionKey = (position: Position): PositionKey =>
         `${position.row}, ${position.column}`;
@@ -42,7 +56,7 @@ export const canEscape = (maze: string[][]): boolean => {
         );
     };
 
-    const isAWall = (currentPosition: Position): Boolean => {
+    const isAWall = (currentPosition: Position): boolean => {
         const { row, column } = currentPosition;
         const cell = maze[row][column];
         if (cell === "#") {
@@ -84,20 +98,20 @@ export const canEscape = (maze: string[][]): boolean => {
     };
 
     const isAnExit = (currentPosition: Position) => {
-        if (isOutOfBounds(currentPosition)) {
-            return false;
-        }
         const { row, column } = currentPosition;
         const cell = maze[row][column];
         const result = cell === "E";
         return result;
     };
 
-    // start at (0, 0)
-    const path: Array<Position> = [];
-    const stack: Array<Position> = [
-        { direction: Direction.Start, row: 0, column: 0 },
-    ];
+    // get start position
+    const start = getStartPosition(maze);
+
+    if (start === null) {
+        return false;
+    }
+
+    const stack: Array<Position> = [start];
 
     while (stack.length > 0) {
         // exploring current cell
@@ -112,9 +126,6 @@ export const canEscape = (maze: string[][]): boolean => {
 
         // add to visited
         visitedCells.add(makePositionKey(currentPosition));
-
-        // keep track of path for clarity reasons
-        path.push(currentPosition);
 
         // return early
         if (isAnExit(currentPosition)) {
