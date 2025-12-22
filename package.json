@@ -9,6 +9,7 @@
         "day-3-help-intern": "node --watch --test --import tsx day-3-help-intern/solution.test.ts",
         "day-4-decipher-pin": "node --watch --test --import tsx day-4-decipher-pin/solution.test.ts",
         "day-5-countdown": "node --watch --test --import tsx day-5-countdown/solution.test.ts",
+        "day-6-matching-gloves": "node --watch --test --import tsx day-6-matching-gloves/solution.test.ts",
         "day-8-non-repeating-letter": "node --watch --test --import tsx day-8-non-repeating-letter/solution.test.ts",
         "day-9-move-robot": "node --watch --test --import tsx day-9-move-robot/solution.test.ts",
         "day-10-depth": "node --watch --test --import tsx day-10-depth/solution.test.ts",
@@ -22,6 +23,7 @@
         "day-18-consecutive-lights-ii": "node --watch --test --import tsx day-18-consecutive-lights-ii/solution.test.ts",
         "day-20-vertical-warehouse": "node --watch --test --import tsx day-20-vertical-warehouse/solution.test.ts",
         "day-21-cleaning-robot": "node --watch --test --import tsx day-21-cleaning-robot/solution.test.ts",
+        "day-22-maze": "node --watch --test --import tsx day-22-maze/solution.test.ts",
         "test": "node --watch --test --import tsx day-*/**.test.ts"
     },
     "keywords": [
