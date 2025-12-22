@@ -3,7 +3,7 @@ classic maze traversal problem, can be solved either with DFS or BFS
 
 my solution:
 - use dfs, stack
-- start from 'S' and move in pattern up, down, right, or left
+- start from 'S' and move in pattern left, right, down, up
 - backtrack if necessary
 - check each time if current cell ends in 'E', immediately return true
 */
