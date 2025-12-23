@@ -5,35 +5,40 @@
     -   [Run All Tests](#run-all-tests)
 -   [Overview](#overview)
     -   [Day 1: Filter gift strings containing '#'](#day-1-filter-gift-strings-containing-)
-        -   [Challenge](#challenge)
-        -   [My solution](#my-solution)
+        -   [The Challenge](#the-challenge)
+        -   [My Solution](#my-solution)
         -   [Time complexity](#time-complexity)
         -   [Space complexity](#space-complexity)
-    -   [Day 2: Filter gift strings containing '#'](#day-2-filter-gift-strings-containing-)
-        -   [Challenge](#challenge-1)
-        -   [My solution](#my-solution-1)
+    -   [Day 2: Make q total gifts from n object orders](#day-2-make-q-total-gifts-from-n-object-orders)
+        -   [The Challenge](#the-challenge-1)
+        -   [My Solution](#my-solution-1)
         -   [Time complexity](#time-complexity-1)
         -   [Space complexity](#space-complexity-1)
-    -   [Day 2: Make q total gifts from n object orders](#day-2-make-q-total-gifts-from-n-object-orders)
-        -   [Challenge](#challenge-2)
-        -   [My solution](#my-solution-2)
+    -   [Day 3: Draw square gift perimeter](#day-3-draw-square-gift-perimeter)
+        -   [The Challenge](#the-challenge-2)
+        -   [My Solution](#my-solution-2)
         -   [Time complexity](#time-complexity-2)
         -   [Space complexity](#space-complexity-2)
+    -   [Day 4: Decipher pin from cyphered tokens](#day-4-decipher-pin-from-cyphered-tokens)
+        -   [The Challenge](#the-challenge-3)
+        -   [My Solution](#my-solution-3)
+        -   [Time complexity](#time-complexity-3)
+        -   [Space complexity](#space-complexity-3)
     -   [Day 8: Find first non-repeating letter](#day-8-find-first-non-repeating-letter)
         -   [Solution](#solution)
             -   [Code](#code)
             -   [Tests](#tests)
         -   [Runtime complexity](#runtime-complexity)
-        -   [Space complexity](#space-complexity-3)
+        -   [Space complexity](#space-complexity-4)
         -   [Improvements](#improvements)
     -   [Day 9: Move robot (hard)](#day-9-move-robot-hard)
     -   [Day 13: Assembly board](#day-13-assembly-board)
-        -   [Challenge](#challenge-3)
+        -   [Challenge](#challenge)
             -   [Input example](#input-example)
         -   [Solution](#solution-1)
             -   [Code](#code-1)
-        -   [Time complexity](#time-complexity-3)
-        -   [Space complexity](#space-complexity-4)
+        -   [Time complexity](#time-complexity-4)
+        -   [Space complexity](#space-complexity-5)
             -   [Example, classic loop](#example-classic-loop)
         -   [Tests](#tests-1)
             -   [Note](#note)
@@ -85,10 +90,10 @@ pnpm test
 
 | Day                                            | Difficulty | Solved | Time Complexity | Space Complexity |
 | ---------------------------------------------- | ---------- | ------ | --------------- | ---------------- |
-| Day 1: Filter gift strings containing '#'      | Easy       | ✅     | O(n)            | O(n)             |
+| Day 1: Filter gift strings containing '#'      | Easy       | ✅     | O(L)            | O(n)             |
 | Day 2: Make q total gifts from n object orders | Easy       | ✅     | O(n + q)        | O(n + q)         |
-| Day 3: Draw square gift perimeter              | Easy       | ✅     | O(n)            | O(n^2)           |
-| Day 4: Decipher pin from cyphered tokens       | Medium     | ✅     | O(n)            | O(n)             |
+| Day 3: Draw square gift perimeter              | Easy       | ✅     | O(n^2)          | O(n^2)           |
+| Day 4: Decipher pin from cyphered tokens       | Medium     | ✅     | O(L)            | O(L)             |
 | Day 5: Countdown                               | Easy       | ✅     | O(1)            | O(1)             |
 | Day 6: Matching gloves                         | Easy       |        |                 |                  |
 | Day 7: Draw a custom tree                      | Medium     |        |                 |                  |
@@ -109,57 +114,58 @@ pnpm test
 | Day 22: Maze                                   | Hard       | ✅     | O(n)            | O(n)             |
 |                                                |            |        |                 |                  |
 
+> Space complexity means Auxiliary space, i.e. space reserved for the algorithm itself including the output, but _without_ the input space itself.
+
 ## Day 1: Filter gift strings containing '#'
 
-### Challenge
+### The Challenge
 
 Return a filtered out array of strings that don't contain character `'#'`
 
-### My solution
+```ts
+{
+    input: ["car", "doll#arm", "ball", "#train"],
+    expectedOutput: ["car", "ball"],
+}
+```
+
+### My Solution
 
 Pretty straightforward:
 
 -   we'll use `.filter` array method
 -   provide a predicate function that will run on each string,
--   use the built-in `.inlcudes` method to ensure the string does not contain `'#'`
+-   use the built-in `.includes` method to ensure the string does not contain `'#'`
 
 ### Time complexity
 
-O(n) because we have to process each input in the string.
+_O(L)_ where _L_ is the total length of all strings provided. This is because in the worst-case we have to process _every_ character of _each_ string before concluding it does not contain the offending character.
+
+In other words the work is proportional to the total length, if the total character count _doubled_, or _tripled_, so would _at least_ the amount of work done.
 
 ### Space complexity
 
-O(n) because in the worst case, if no string contains the offending character, we're returning a entire new copy of the array.
-
-Make q gifts from n object orders
-
-## Day 2: Filter gift strings containing '#'
-
-### Challenge
-
-### My solution
-
-### Time complexity
-
-### Space complexity
+_O(n)_ because in the worst case, if no string contains the offending character, we're returning a entire new copy of the array.
 
 ## Day 2: Make q total gifts from n object orders
 
-### Challenge
+### The Challenge
 
 Given an array of instruction objects, produce `quantity` copies for each string in `toy` value, and return the flattened array. Ignore objects with `quantity` <= 0
 
 ```ts
-input: [
-    { toy: "car", quantity: 3 },
-    { toy: "doll", quantity: 1 },
-    { toy: "ball", quantity: 2 },
-],
+{
+    input: [
+        { toy: "car", quantity: 3 },
+        { toy: "doll", quantity: 1 },
+        { toy: "ball", quantity: 2 },
+    ],
 
-expectedOutput: ["car", "car", "car", "doll", "ball", "ball"],
+    expectedOutput: ["car", "car", "car", "doll", "ball", "ball"],
+}
 ```
 
-### My solution
+### My Solution
 
 Pretty straightforward too:
 
@@ -178,6 +184,82 @@ The work is proportional to both the objects count and how many strings to produ
 ### Space complexity
 
 _O(n + q)_ This is broken as O(n) for the temporary array holding references to the objects filtered, in addition O(q) for all elements produced.
+
+## Day 3: Draw square gift perimeter
+
+### The Challenge
+
+Given a `size` length of a square, and a `symbol`, draw the square outer perimeter. Print inner cells as empty (space).
+
+```ts
+{
+    size: 4,
+    symbol: "*",
+    expectedOutput: `
+****
+*  *
+*  *
+****`,
+}
+```
+
+### My Solution
+
+-   Iterate `size` times,
+-   depending on the index, if it's the first or last line:
+    -   draw either the top full `symbol` line, or
+    -   draw the mostly hollow middle line, with only 2 `symbol` on the outer perimeter.
+-   `.join` the lines with `\n` and print the output.
+
+### Time complexity
+
+_O(n^2)_ because on _each_ iteration, we do _O(n)_ work, creating the _n_ length line.
+
+### Space complexity
+
+_O(n^2)_ because we store _n^2_ cell elements of the square output.
+
+## Day 4: Decipher pin from cyphered tokens
+
+### The Challenge
+
+Given a string of tokens (substrings), process them and output the digit for each token.
+
+Each token resembles this format `n_Ops1_Ops2_...` (without the underscores) where
+
+-   `n` is the initial digit to modify
+-   `Ops` are instructions like
+    -   `+` to increment,
+    -   `-` to decrement,
+    -   `<` to return digit from previous token.
+
+```ts
+{
+    input: "[1++][2-][3+][<]",
+    expectedOutput: "3144"
+}
+```
+
+### My Solution
+
+-   tokenize the string (with regular expressions) as `["1++", "2-", "3+", "<"]`
+-   keep a global `previousDigit`
+-   iterate over each token,
+-   apply `decipher(...)` to obtain the digit
+-   `.join` the outputs
+
+### Time complexity
+
+_O(L)_ where _L_ is the entire length of the input string, because we have to process each character and apply the deciphering logic.
+
+### Space complexity
+
+_O(L)_ because I store all the tokens, and other intermediate arrays.
+
+The optimal solution (streaming parser) would be:
+
+-   _O(1)_ if the output size is constrained, as in this case to 4 fixed size slots,
+-   _O(n)_ if the input is unbounded, where n where _n_ is the tokens count.
 
 ## Day 8: Find first non-repeating letter
 
