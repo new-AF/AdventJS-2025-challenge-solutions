@@ -24,12 +24,18 @@
         -   [My Solution](#my-solution-3)
         -   [Time complexity](#time-complexity-3)
         -   [Space complexity](#space-complexity-3)
+    -   [Day 5: Countdown](#day-5-countdown)
+        -   [The Challenge](#the-challenge-4)
+        -   [My Solution](#my-solution-4)
+        -   [Time complexity](#time-complexity-4)
+        -   [Space complexity](#space-complexity-4)
+    -   [Day 6: Matching gloves](#day-6-matching-gloves)
     -   [Day 8: Find first non-repeating letter](#day-8-find-first-non-repeating-letter)
         -   [Solution](#solution)
             -   [Code](#code)
             -   [Tests](#tests)
         -   [Runtime complexity](#runtime-complexity)
-        -   [Space complexity](#space-complexity-4)
+        -   [Space complexity](#space-complexity-5)
         -   [Improvements](#improvements)
     -   [Day 9: Move robot (hard)](#day-9-move-robot-hard)
     -   [Day 13: Assembly board](#day-13-assembly-board)
@@ -37,8 +43,8 @@
             -   [Input example](#input-example)
         -   [Solution](#solution-1)
             -   [Code](#code-1)
-        -   [Time complexity](#time-complexity-4)
-        -   [Space complexity](#space-complexity-5)
+        -   [Time complexity](#time-complexity-5)
+        -   [Space complexity](#space-complexity-6)
             -   [Example, classic loop](#example-classic-loop)
         -   [Tests](#tests-1)
             -   [Note](#note)
@@ -94,7 +100,7 @@ pnpm test
 | Day 2: Make q total gifts from n object orders | Easy       | ✅     | O(n + q)        | O(n + q)         |
 | Day 3: Draw square gift perimeter              | Easy       | ✅     | O(n^2)          | O(n^2)           |
 | Day 4: Decipher pin from cyphered tokens       | Medium     | ✅     | O(L)            | O(L)             |
-| Day 5: Countdown                               | Easy       | ✅     | O(1)            | O(1)             |
+| Day 5: Countdown                               | Easy       | ✅     | O(L)            | O(1)             |
 | Day 6: Matching gloves                         | Easy       |        |                 |                  |
 | Day 7: Draw a custom tree                      | Medium     |        |                 |                  |
 | Day 8: Find first non-repeating letter         | Easy       | ✅     | O(n)            | O(n)             |
@@ -260,6 +266,40 @@ The optimal solution (streaming parser) would be:
 
 -   _O(1)_ if the output size is constrained, as in this case to 4 fixed size slots,
 -   _O(n)_ if the input is unbounded, where n where _n_ is the tokens count.
+
+## Day 5: Countdown
+
+### The Challenge
+
+Return the seconds difference between two date-time strings. The caveat is the strings are in a non-standard format so need processing.
+
+```ts
+const takeoff = "2025*12*25@00|00|00 NP";
+
+{
+    input: "2025*12*24@23|59|30 NP",
+    takeoff,
+    expectedOutput: 30
+}
+```
+
+### My Solution
+
+-   apply a fixed number of `.replaceAll` operations to convert the strings to standard format
+    -   e.g. `2025*12*24@23|59|30 NP` to `2025-12-24T23:59:30Z`
+-   obtain `Date()` objects
+-   subtract the dates, to obtain the milliseconds.
+-   divide the result by 1000 and `Math.floor` it.
+
+### Time complexity
+
+_O(L)_ because `replaceAll` checks _each_ character to convert all the non-standard symbols.
+
+### Space complexity
+
+_O(1)_ because we only need fixed space for the `Date` objects, and calculations.
+
+## Day 6: Matching gloves
 
 ## Day 8: Find first non-repeating letter
 
