@@ -1,42 +1,77 @@
 -   [Intro](#intro)
+-   [Structure](#structure)
 -   [Install](#install)
-    -   [Run Individual Test Suites](#run-individual-test-suites)
+    -   [Run Individual Tests](#run-individual-tests)
     -   [Run All Tests](#run-all-tests)
 -   [Overview](#overview)
-    -   [Day 8: Find first non-repeating letter (easy)](#day-8-find-first-non-repeating-letter-easy)
+    -   [Day 1: Filter gift strings containing '#'](#day-1-filter-gift-strings-containing-)
+        -   [Challenge](#challenge)
+        -   [My solution](#my-solution)
+        -   [Time complexity](#time-complexity)
+        -   [Space complexity](#space-complexity)
+    -   [Day 2: Filter gift strings containing '#'](#day-2-filter-gift-strings-containing-)
+        -   [Challenge](#challenge-1)
+        -   [My solution](#my-solution-1)
+        -   [Time complexity](#time-complexity-1)
+        -   [Space complexity](#space-complexity-1)
+    -   [Day 2: Make q total gifts from n object orders](#day-2-make-q-total-gifts-from-n-object-orders)
+        -   [Challenge](#challenge-2)
+        -   [My solution](#my-solution-2)
+        -   [Time complexity](#time-complexity-2)
+        -   [Space complexity](#space-complexity-2)
+    -   [Day 8: Find first non-repeating letter](#day-8-find-first-non-repeating-letter)
         -   [Solution](#solution)
             -   [Code](#code)
             -   [Tests](#tests)
         -   [Runtime complexity](#runtime-complexity)
-        -   [Space complexity](#space-complexity)
+        -   [Space complexity](#space-complexity-3)
         -   [Improvements](#improvements)
     -   [Day 9: Move robot (hard)](#day-9-move-robot-hard)
     -   [Day 13: Assembly board](#day-13-assembly-board)
-        -   [Challenge](#challenge)
+        -   [Challenge](#challenge-3)
             -   [Input example](#input-example)
         -   [Solution](#solution-1)
             -   [Code](#code-1)
-        -   [Time complexity](#time-complexity)
-        -   [Space complexity](#space-complexity-1)
+        -   [Time complexity](#time-complexity-3)
+        -   [Space complexity](#space-complexity-4)
             -   [Example, classic loop](#example-classic-loop)
         -   [Tests](#tests-1)
             -   [Note](#note)
 
 # Intro
 
-These are my TypeScript solutions to the [AdventJS 2025 coding challenge](https://adventjs.dev/challenges/2025) :)
+I solved [AdventJS 2025 coding challenge](https://adventjs.dev/challenges/2025) using `TypeScript` and `Node.js` for both runtime and tests.
+
+# Structure
+
+Each `day-XX-...` directory contains both:
+
+-   `solution.ts`
+-   `solution.test.ts`
+
+The tests are the biggest benefit you can take from this repo (apart from technical discussion) because they contain some of the 'official' input cases which I used them to validate my solution before submitting, and in case the online runner found edge cases my solution didn't handle, I added those case to the test suite and fixed the solution.
 
 # Install
 
+You will need:
+
+-   [Git](https://git-scm.com/install/)
+-   [Node.js](https://nodejs.org/en/download/current)
+-   [pnpm (though I suppose npm could work too)](https://pnpm.io/installation)
+
 ```bash
 git clone https://github.com/new-AF/AdventJS-2025-challenge-solutions
+
 cd AdventJS-2025-challenge-solutions
+
 pnpm install
 ```
 
-## Run Individual Test Suites
+## Run Individual Tests
 
 ```bash
+# pnpm day-xx-folder-...
+
 pnpm day-8-non-repeating-letter
 ```
 
@@ -48,10 +83,103 @@ pnpm test
 
 # Overview
 
-<table><thead><tr><th>Day</th><th>Challenge</th><th>Solution</th><th>Time complexity type</th><th>Time complexity precise</th><th>Space complexity</th></tr></thead><tbody><tr><td><a href="https://github.com/new-AF/AdventJS-2025-challenge-solutions?tab=readme-ov-file#day-8-find-first-non-repeating-letter-easy" target="_blank" rel="noopener noreferrer">8 Non-repeating letter</a></td><td>Find first non-repeating letter in a string</td><td>Use a dictionary, make inventory of the lowercase letters, do final pass, and check duplicates.</td><td>Linear</td><td>O(n)<br><br>n = input string<br>length</td><td>O(n)</td></tr><tr><td>9</td><td>Move a robot on 2d board, using input string as control, and return some status.</td><td>Convert the board (multi-line string) to a 2D array, find the robot, and follow input move commands.</td><td>Sum of terms</td><td>O(m * n + k)<br><br>m = board row<br>count<br><br>n = columns<br><br>k = control input<br>string length</td><td>O(m * n)</td></tr>
-<tr><td><a href="https://github.com/new-AF/AdventJS-2025-challenge-solutions#day-13-assembly-board">13 Assembly board</a></td><td>Move a gift using instructions on a 2D assembly board, and return outcomes ("completed", "loop", or "broken")</td><td>Process instructions using a single while loop, avoid loops, and return early.</td><td>Linear</td><td>O(n)<br><br>n = total control<br>string input</td><td>O(n)<br><br></td></tr></tbody></table>
+| Day                                            | Difficulty | Solved | Time Complexity | Space Complexity |
+| ---------------------------------------------- | ---------- | ------ | --------------- | ---------------- |
+| Day 1: Filter gift strings containing '#'      | Easy       | ✅     | O(n)            | O(n)             |
+| Day 2: Make q total gifts from n object orders | Easy       | ✅     | O(n + q)        | O(n + q)         |
+| Day 3: Draw square gift perimeter              | Easy       | ✅     | O(n)            | O(n^2)           |
+| Day 4: Decipher pin from cyphered tokens       | Medium     | ✅     | O(n)            | O(n)             |
+| Day 5: Countdown                               | Easy       | ✅     | O(1)            | O(1)             |
+| Day 6: Matching gloves                         | Easy       |        |                 |                  |
+| Day 7: Draw a custom tree                      | Medium     |        |                 |                  |
+| Day 8: Find first non-repeating letter         | Easy       | ✅     | O(n)            | O(n)             |
+| Day 9: Move robot                              | Hard       | ✅     | O(m\*n + k)     | O(m\*n)          |
+| Day 10: Depth                                  | Easy       | ✅     |                 |                  |
+| Day 11: Unwatched gifts                        | Easy       | ✅     |                 |                  |
+| Day 12: Elf battle                             | Medium     | ✅     |                 |                  |
+| Day 13 Assembly board                          | Medium     | ✅     |                 |                  |
+| Day 14: Gift path                              | Easy       | ✅     |                 |                  |
+| Day 15: Draw table                             | Medium     | ✅     |                 |                  |
+| Day 16 Packing gifts                           | Easy       | ✅     |                 |                  |
+| Day 17: Consecutive lights                     | Easy       | ✅     |                 |                  |
+| Day 18: Consecutive lights ii                  | Medium     | ✅     |                 |                  |
+| Day 19:                                        | Easy       |        |                 |                  |
+| Day 20: Vertical warehouse                     | Easy       | ✅     |                 |                  |
+| Day 21: Cleaning robot                         | Medium     | ✅     |                 |                  |
+| Day 22: Maze                                   | Hard       | ✅     | O(n)            | O(n)             |
+|                                                |            |        |                 |                  |
 
-## Day 8: Find first non-repeating letter (easy)
+## Day 1: Filter gift strings containing '#'
+
+### Challenge
+
+Return a filtered out array of strings that don't contain character `'#'`
+
+### My solution
+
+Pretty straightforward:
+
+-   we'll use `.filter` array method
+-   provide a predicate function that will run on each string,
+-   use the built-in `.inlcudes` method to ensure the string does not contain `'#'`
+
+### Time complexity
+
+O(n) because we have to process each input in the string.
+
+### Space complexity
+
+O(n) because in the worst case, if no string contains the offending character, we're returning a entire new copy of the array.
+
+Make q gifts from n object orders
+
+## Day 2: Filter gift strings containing '#'
+
+### Challenge
+
+### My solution
+
+### Time complexity
+
+### Space complexity
+
+## Day 2: Make q total gifts from n object orders
+
+### Challenge
+
+Given an array of instruction objects, produce `quantity` copies for each string in `toy` value, and return the flattened array. Ignore objects with `quantity` <= 0
+
+```ts
+input: [
+    { toy: "car", quantity: 3 },
+    { toy: "doll", quantity: 1 },
+    { toy: "ball", quantity: 2 },
+],
+
+expectedOutput: ["car", "car", "car", "doll", "ball", "ball"],
+```
+
+### My solution
+
+Pretty straightforward too:
+
+-   we'll `.filter` out objects with `quantity <= 0`
+-   `.map` over each object, allocate a new nested array of length `quantity`
+    -   `.fill` it with `toy` value strings
+-   call `.flat` on the outer array
+-   return the flatten array.
+
+### Time complexity
+
+_O(n + q)_ where _q_ is the sum of all quantities, and _n_ the count of all objects. This is broken as O(n) for total objects work, in addition to O(q) for all elements produced.
+
+The work is proportional to both the objects count and how many strings to produce.
+
+### Space complexity
+
+_O(n + q)_ This is broken as O(n) for the temporary array holding references to the objects filtered, in addition O(q) for all elements produced.
+
+## Day 8: Find first non-repeating letter
 
 ![screenshot of day 8 problem and my solution having passed](https://github.com/new-AF/AdventJS-2025-challenge-solutions/blob/main/.github/images/day-8-intro.png?raw=true)
 

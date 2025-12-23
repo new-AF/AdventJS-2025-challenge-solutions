@@ -1,0 +1,24 @@
+Day,Difficulty,Solved,Time Complexity,Space Complexity
+Day 1: Filter gift strings containing '#',Easy,✅,O(n),O(n)
+Day 2: Make q gifts from n object orders,Easy,✅,O(n*q),O(n*q)
+Day 3: Draw square gift perimeter,Easy,✅,O(n),O(n^2)
+Day 4: Decipher pin from cyphered tokens,Medium,✅,O(n),O(n)
+Day 5: Countdown,Easy,✅,O(1),O(1)
+Day 6: Matching gloves,Easy,,,
+Day 7: Draw a custom tree,Medium,,,
+Day 8: Non repeating letter,Easy,✅,O(n),O(n)
+Day 9: Move robot,Hard,✅,O(m*n + k),O(m*n)
+Day 10: Depth,Easy,✅,,
+Day 11: Unwatched gifts,Easy,✅,,
+Day 12: Elf battle,Medium,✅,,
+Day 13 Assembly board,Medium,✅,,
+Day 14: Gift path,Easy,✅,,
+Day 15: Draw table,Medium,✅,,
+Day 16 Packing gifts,Easy,✅,,
+Day 17: Consecutive lights,Easy,✅,,
+Day 18: Consecutive lights ii,Medium,✅,,
+Day 19:,Easy,,,
+Day 20: Vertical warehouse,Easy,✅,,
+Day 21: Cleaning robot,Medium,✅,,
+Day 22: Maze,Hard,✅,O(n),O(n)
+,,,,
