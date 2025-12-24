@@ -26,6 +26,7 @@
         "day-21-cleaning-robot": "node --watch --test --import tsx day-21-cleaning-robot/solution.test.ts",
         "day-22-maze": "node --watch --test --import tsx day-22-maze/solution.test.ts",
         "day-23-shortest-distance": "node --watch --test --import tsx day-23-shortest-distance/solution.test.ts",
+        "day-24-mirror-trees": "node --watch --test --import tsx day-24-mirror-trees/solution.test.ts",
         "test": "node --watch --test --import tsx day-*/**.test.ts"
     },
     "keywords": [
