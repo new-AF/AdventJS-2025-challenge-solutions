@@ -30,23 +30,31 @@
         -   [Time complexity](#time-complexity-4)
         -   [Space complexity](#space-complexity-4)
     -   [Day 6: Matching gloves](#day-6-matching-gloves)
-    -   [Day 8: Find first non-repeating letter](#day-8-find-first-non-repeating-letter)
-        -   [Solution](#solution)
-            -   [Code](#code)
-            -   [Tests](#tests)
-        -   [Runtime complexity](#runtime-complexity)
+        -   [The Challenge](#the-challenge-5)
+        -   [My Solution](#my-solution-5)
+        -   [Time complexity](#time-complexity-5)
         -   [Space complexity](#space-complexity-5)
+    -   [Day 7: Draw a custom tree](#day-7-draw-a-custom-tree)
+        -   [The Challenge](#the-challenge-6)
+        -   [My Solution](#my-solution-6)
+        -   [Time complexity](#time-complexity-6)
+        -   [Space complexity](#space-complexity-6)
+    -   [Day 8: Find first non-repeating letter](#day-8-find-first-non-repeating-letter)
+        -   [The Challenge](#the-challenge-7)
+        -   [My Solution](#my-solution-7)
+        -   [Time Complexity](#time-complexity-7)
+        -   [Space Complexity](#space-complexity-7)
         -   [Improvements](#improvements)
-    -   [Day 9: Move robot (hard)](#day-9-move-robot-hard)
+    -   [Day 9: Move robot](#day-9-move-robot)
     -   [Day 13: Assembly board](#day-13-assembly-board)
         -   [Challenge](#challenge)
             -   [Input example](#input-example)
-        -   [Solution](#solution-1)
-            -   [Code](#code-1)
-        -   [Time complexity](#time-complexity-5)
-        -   [Space complexity](#space-complexity-6)
+        -   [Solution](#solution)
+            -   [Code](#code)
+        -   [Time complexity](#time-complexity-8)
+        -   [Space complexity](#space-complexity-8)
             -   [Example, classic loop](#example-classic-loop)
-        -   [Tests](#tests-1)
+        -   [Tests](#tests)
             -   [Note](#note)
 
 # Intro
@@ -101,8 +109,8 @@ pnpm test
 | Day 3: Draw square gift perimeter              | Easy       | ✅     | O(n^2)          | O(n^2)           |
 | Day 4: Decipher pin from cyphered tokens       | Medium     | ✅     | O(L)            | O(L)             |
 | Day 5: Countdown                               | Easy       | ✅     | O(L)            | O(1)             |
-| Day 6: Matching gloves                         | Easy       |        |                 |                  |
-| Day 7: Draw a custom tree                      | Medium     |        |                 |                  |
+| Day 6: Matching gloves                         | Easy       | ✅     | O(n)            | O(k)             |
+| Day 7: Draw a custom tree                      | Medium     | ✅     | O(h^2)          | O(h^2)           |
 | Day 8: Find first non-repeating letter         | Easy       | ✅     | O(n)            | O(n)             |
 | Day 9: Move robot                              | Hard       | ✅     | O(m\*n + k)     | O(m\*n)          |
 | Day 10: Depth                                  | Easy       | ✅     |                 |                  |
@@ -301,13 +309,85 @@ _O(1)_ because we only need fixed space for the `Date` objects, and calculations
 
 ## Day 6: Matching gloves
 
+### The Challenge
+
+Count the match pairs of glove objects that are identical in both `color` and `hand` direction. Preserve the order, as soon as a new pair is found list it, multiple pairs of the same color are allowed.
+
+```ts
+{
+    input: [
+        { hand: "L", color: "red" },
+        { hand: "R", color: "red" },
+        { hand: "R", color: "green" },
+        { hand: "L", color: "blue" },
+        { hand: "L", color: "green" },
+    ],
+    expectedOutput: ["red", "green"],
+}
+```
+
+### My Solution
+
+-   use a hash map `Map` as quasi tally
+-   `.forEach` over the input array
+-   on the fist encounter of `color`, set it as key, and value as `{left: 0, right:0}` initially
+-   later increment the left and right piece
+-   as soon as either the left or right count is `>=1` we found a new pair, push it, and decrement counts accordingly
+
+### Time complexity
+
+_O(n)_ where _n_ is the number of objects, because we have to process _each_.
+
+### Space complexity
+
+_O(k)_ or _O(n)_ where _k_ is the number of distinct colors, because they are the keys of the hash map. In the worst case _k = n_ because the whole input would be objects of unique colors but only one piece.
+
+## Day 7: Draw a custom tree
+
+### The Challenge
+
+Draw a centered Christmas tree of `height` and with custom `ornament` that repeat every `frequency`
+
+```ts
+{
+    height: 5,
+    ornament: "o",
+    frequency: 2,
+    expectedOutput: `
+    *
+   o*o
+  *o*o*
+ o*o*o*o
+*o*o*o*o*
+    #
+`,
+}
+```
+
+### My Solution
+
+-   Iterate `height` times
+-   generate the `2 * index + 1` inner array `.fill` it with `*`
+-   iterate over all cells and mark those that are `% frequency`
+-   center the tree by padding it as `Math.floor((maxWidth - array.length) / 2)`
+
+### Time complexity
+
+_O(h^2)_ where _h_ is `height`. This is because the tree has `h^2 + 1` elements, and this comes from math, the sum of the sequence that represents rows lengths `1, 3, 5, ..., 2 * height - 1` is `h^2` In addition to the base element `#`
+
+### Space complexity
+
+_O(h^2)_ because we store at least the entire tree elements count, in addition to intermediary processing arrays.
+
 ## Day 8: Find first non-repeating letter
 
 ![screenshot of day 8 problem and my solution having passed](https://github.com/new-AF/AdventJS-2025-challenge-solutions/blob/main/.github/images/day-8-intro.png?raw=true)
 
 [https://adventjs.dev/challenges/2025/8](https://adventjs.dev/challenges/2025/8)
 
-The challenge is `findUniqueToy(toy: string): string` should return the first non-repeating letter (regardless of casing) in a string. If all letters are repeated, the function should return an empty string. e.g.
+### The Challenge
+
+Return the first non-repeating letter (regardless of casing) in a string. If all letters are repeated, the function should return an empty string. e.g.
 
 -   `"Gift"` should return `"G"`
 -   `"sS"` should return `""`
@@ -315,7 +395,7 @@ The challenge is `findUniqueToy(toy: string): string` should return the first no
 
 Rest of test cases in `day-8-non-repeating-letter/solution.test.ts`
 
-### Solution
+### My Solution
 
 1.  Use a dictionary (JS Object `{}`)
 2.  Iterate over the string and mark if the lowercase letter occurred before.
@@ -324,72 +404,7 @@ Rest of test cases in `day-8-non-repeating-letter/solution.test.ts`
 
 3.  Do another pass, and break out of the function at the first letter that is marked as having no duplicates by referencing the dictionary.
 
-#### Code
-
-[day-8-non-repeating-letter/solution.ts](day-8-non-repeating-letter/solution.ts)
-
-```ts
-export function findUniqueToy(toy: string): string {
-    const array = Array.from(toy);
-
-    // has a lowerCase ketter occurred before.
-    const hasOccuredBefore: Record<string, boolean> = {};
-
-    // run through the whole string, and mark if a lowerCase occured before.
-    array.forEach((letter) => {
-        const lowerCase = letter.toLowerCase();
-        if (Object.hasOwn(hasOccuredBefore, lowerCase)) {
-            hasOccuredBefore[lowerCase] = true;
-            return;
-        }
-
-        hasOccuredBefore[lowerCase] = false;
-    });
-
-    // find first one that has no occurrences.
-    for (const letter of array) {
-        const lowerCase = letter.toLowerCase();
-        if (!hasOccuredBefore[lowerCase]) {
-            return letter;
-        }
-    }
-
-    return "";
-}
-```
-
-#### Tests
-
-[day-8-non-repeating-letter/solution.test.ts](day-8-non-repeating-letter/solution.test.ts)
-
-```ts
-import { describe, it } from "node:test";
-import { strictEqual } from "node:assert/strict";
-import { findUniqueToy } from "./solution.ts";
-
-const itCases = {
-    Gift: "G",
-    sS: "",
-    reindeeR: "i",
-    AaBbCc: "",
-    abcDEF: "a",
-    aAaAaAF: "F",
-    sTreSS: "T",
-    z: "z",
-};
-describe(findUniqueToy.name, () => {
-    Object.entries(itCases).forEach(([input, expectedOutput]) => {
-        const result = findUniqueToy(input);
-        const testFunction = () => strictEqual(result, expectedOutput);
-        it(
-            `${findUniqueToy.name}(${input}) should return >${expectedOutput}<`,
-            testFunction
-        );
-    });
-});
-```
-
-### Runtime complexity
+### Time Complexity
 
 Assuming the dictionary key insertion and retrieval is O(1) then:
 
@@ -398,7 +413,7 @@ Assuming the dictionary key insertion and retrieval is O(1) then:
 -   Dictionary construction is O(n) because we iterate over the entire string, and do n queries and insertions.
 -   O(n) for the final pass, doing n dictionary retrievals.
 
-### Space complexity
+### Space Complexity
 
 Overall space complexity is **O(n)** because:
 
@@ -422,7 +437,7 @@ Instead of the ambiguous empty string (`""`) on failure, the function should alw
 
 This will explicitly tell if the string had any non-repeating letters. If all the letters are repeated `success` would be `false`, and we wouldn't return `value`
 
-## Day 9: Move robot (hard)
+## Day 9: Move robot
 
 // TBW
 

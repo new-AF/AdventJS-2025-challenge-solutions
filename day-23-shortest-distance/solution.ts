@@ -1,12 +1,4 @@
-/* 
-classic maze traversal problem, can be solved either with DFS or BFS
-
-my solution:
-- use bfs, queue
-- start from 'S' and move in pattern left, right, down, up
-- check each time if current cell ends in 'E', immediately return true
-*/
-export const canEscapeBFS = (maze: string[][]): boolean => {
+export const minStepsToDeliver = (map: string[][]): number => {
     // aliases for better readability
     type Row = number;
     type Column = number;
@@ -19,7 +11,12 @@ export const canEscapeBFS = (maze: string[][]): boolean => {
         Left = "Left",
     }
 
-    type Position = { direction: Direction; row: Row; column: Column };
+    type Position = {
+        direction: Direction;
+        row: Row;
+        column: Column;
+        distance: number;
+    };
 
     // because Set can't meaningfully store objects
     type PositionKey = `${Row}, ${Column}`;
@@ -27,12 +24,17 @@ export const canEscapeBFS = (maze: string[][]): boolean => {
     // to avoid loops
     const visitedCells = new Set<PositionKey>();
 
-    //
+    // search the start position
     const getStartPosition = (currentMaze: string[][]): Position | null => {
         for (const [row, array] of currentMaze.entries()) {
             for (const [column, cell] of array.entries()) {
                 if (cell === "S") {
-                    return { direction: Direction.Start, row, column };
+                    return {
+                        direction: Direction.Start,
+                        row,
+                        column,
+                        distance: 0,
+                    };
                 }
             }
         }
@@ -49,15 +51,15 @@ export const canEscapeBFS = (maze: string[][]): boolean => {
         const { row, column } = currentPosition;
         return (
             row < 0 ||
-            row >= maze.length ||
+            row >= map.length ||
             column < 0 ||
-            column >= maze[0].length
+            column >= map[0].length
         );
     };
 
     const isAWall = (currentPosition: Position): boolean => {
         const { row, column } = currentPosition;
-        const cell = maze[row][column];
+        const cell = map[row][column];
         if (cell === "#") {
             return true;
         }
@@ -65,24 +67,34 @@ export const canEscapeBFS = (maze: string[][]): boolean => {
         return false;
     };
 
+    // get all valid, but possibly visited before positions
+    // always add +1 distance
     const getNeighbors = (currentPosition: Position): Position[] => {
-        const { row, column } = currentPosition;
+        const { row, column, distance } = currentPosition;
         const directionToPosition = {
-            [Direction.Up]: { direction: Direction.Up, row: row - 1, column },
+            [Direction.Up]: {
+                direction: Direction.Up,
+                row: row - 1,
+                column,
+                distance: distance + 1,
+            },
             [Direction.Down]: {
                 direction: Direction.Down,
                 row: row + 1,
                 column,
+                distance: distance + 1,
             },
             [Direction.Right]: {
                 direction: Direction.Right,
                 row,
                 column: column + 1,
+                distance: distance + 1,
             },
             [Direction.Left]: {
                 direction: Direction.Left,
                 row,
                 column: column - 1,
+                distance: distance + 1,
             },
         };
 
@@ -96,25 +108,48 @@ export const canEscapeBFS = (maze: string[][]): boolean => {
         return validPositions;
     };
 
-    const isAnExit = (currentPosition: Position) => {
+    // is the cell position a gift
+    const isAGift = (currentPosition: Position) => {
         const { row, column } = currentPosition;
-        const cell = maze[row][column];
-        const result = cell === "E";
+        const cell = map[row][column];
+        const result = cell === "G";
         return result;
     };
 
     // get start position
-    const start = getStartPosition(maze);
+    const start = getStartPosition(map);
 
+    let totalDistance = 0;
+
+    // if unreachable
     if (start === null) {
-        return false;
+        return -1;
     }
 
+    // all positions planning to explore
     const queue: Array<Position> = [start];
 
+    const path: Position[] = [];
+
+    const distances: Position[] = [];
+
+    let totalGifts = 0;
+
+    for (const row of map) {
+        for (const cell of row)
+            if (cell === "G") {
+                totalGifts += 1;
+            }
+    }
+
+    visitedCells.add(makePositionKey(start));
+
+    // start maze searching
     while (queue.length > 0) {
         // exploring current cell
-        const currentPosition = queue.pop();
+        const currentPosition = queue.shift();
+
+        path.push(currentPosition);
 
         // debugger;
 
@@ -123,12 +158,10 @@ export const canEscapeBFS = (maze: string[][]): boolean => {
             break;
         }
 
-        // add to visited
-        visitedCells.add(makePositionKey(currentPosition));
-
-        // return early
-        if (isAnExit(currentPosition)) {
-            return true;
+        // accumulate distances
+        if (isAGift(currentPosition)) {
+            totalDistance += currentPosition.distance;
+            distances.push(currentPosition);
         }
 
         // only guaranteed to be in bounds
@@ -141,12 +174,18 @@ export const canEscapeBFS = (maze: string[][]): boolean => {
             return result;
         });
 
+        // add to visited
+        notVisited.forEach((position) => {
+            visitedCells.add(makePositionKey(position));
+        });
+
         // this makes it BFS
-        queue.unshift(...notVisited);
+        queue.push(...notVisited);
 
         // debugger;
     }
 
+    // return distance, or if at least one gift unreachable -1
     // debugger;
-    return false;
+    return distances.length !== totalGifts ? -1 : totalDistance;
 };
