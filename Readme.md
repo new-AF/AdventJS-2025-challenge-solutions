@@ -69,32 +69,32 @@
 
 ## Overview
 
-| Day                                            | Difficulty | Solved | Time Complexity | Space Complexity |
-| ---------------------------------------------- | ---------- | ------ | --------------- | ---------------- |
-| Day 1: Filter gift strings containing '#'      | Easy       | ✅     | O(L)            | O(n)             |
-| Day 2: Make q total gifts from n object orders | Easy       | ✅     | O(n + q)        | O(n + q)         |
-| Day 3: Draw square gift perimeter              | Easy       | ✅     | O(n^2)          | O(n^2)           |
-| Day 4: Decipher pin from cyphered tokens       | Medium     | ✅     | O(L)            | O(L)             |
-| Day 5: Countdown                               | Easy       | ✅     | O(L)            | O(1)             |
-| Day 6: Matching gloves                         | Easy       | ✅     | O(n)            | O(k)             |
-| Day 7: Draw a custom tree                      | Medium     | ✅     | O(h^2)          | O(h^2)           |
-| Day 8: Find first non-repeating letter         | Easy       | ✅     | O(n)            | O(n)             |
-| Day 9: Move robot                              | Hard       | ✅     | O(L + k)        | O(L + k)         |
-| Day 10: Depth                                  | Easy       | ✅     |                 |                  |
-| Day 11: Unwatched gifts                        | Easy       | ✅     |                 |                  |
-| Day 12: Elf battle                             | Medium     | ✅     |                 |                  |
-| Day 13 Assembly board                          | Medium     | ✅     |                 |                  |
-| Day 14: Gift path                              | Easy       | ✅     |                 |                  |
-| Day 15: Draw table                             | Medium     | ✅     |                 |                  |
-| Day 16 Packing gifts                           | Easy       | ✅     |                 |                  |
-| Day 17: Consecutive lights                     | Easy       | ✅     |                 |                  |
-| Day 18: Consecutive lights II                  | Medium     | ✅     |                 |                  |
-| Day 19: Connecting flights                     | Easy       | ✅     |                 |                  |
-| Day 20: Vertical warehouse                     | Easy       | ✅     |                 |                  |
-| Day 21: Cleaning robot                         | Medium     | ✅     |                 |                  |
-| Day 22: Maze                                   | Hard       | ✅     | O(n)            | O(n)             |
-| Day 23: Shortest distance                      | Medium     | ✅     |                 |                  |
-| Day 24: Mirror Trees                           | Medium     | ✅     |                 |                  |
+| Day                                                                                              | Difficulty | Solved | Time Complexity | Space Complexity |
+| ------------------------------------------------------------------------------------------------ | ---------- | ------ | --------------- | ---------------- |
+| [Day 1: Filter gift strings containing '#'](#day-1-filter-gift-strings-containing-)              | Easy       | ✅     | O(L)            | O(n)             |
+| [Day 2: Make q total gifts from n object orders](#day-2-make-q-total-gifts-from-n-object-orders) | Easy       | ✅     | O(n + q)        | O(n + q)         |
+| [Day 3: Draw square gift perimeter](#day-3-draw-square-gift-perimeter)                           | Easy       | ✅     | O(n^2)          | O(n^2)           |
+| [Day 4: Decipher pin from cyphered tokens](#day-4-decipher-pin-from-cyphered-tokens)             | Medium     | ✅     | O(L)            | O(L)             |
+| [Day 5: Countdown](#day-5-countdown)                                                             | Easy       | ✅     | O(L)            | O(1)             |
+| [Day 6: Matching gloves](#day-6-matching-gloves)                                                 | Easy       | ✅     | O(n)            | O(k)             |
+| [Day 7: Draw a custom tree](#day-7-draw-a-custom-tree)                                           | Medium     | ✅     | O(h^2)          | O(h^2)           |
+| [Day 8: Find first non-repeating letter](#day-8-find-first-non-repeating-letter)                 | Easy       | ✅     | O(n)            | O(n)             |
+| [Day 9: Move robot](#day-9-move-robot)                                                           | Hard       | ✅     | O(L + k)        | O(L + k)         |
+| Day 10: Depth                                                                                    | Easy       | ✅     |                 |                  |
+| Day 11: Unwatched gifts                                                                          | Easy       | ✅     |                 |                  |
+| Day 12: Elf battle                                                                               | Medium     | ✅     |                 |                  |
+| [Day 13 Assembly board](#day-13-assembly-board)                                                  | Medium     | ✅     |                 |                  |
+| Day 14: Gift path                                                                                | Easy       | ✅     |                 |                  |
+| Day 15: Draw table                                                                               | Medium     | ✅     |                 |                  |
+| Day 16 Packing gifts                                                                             | Easy       | ✅     |                 |                  |
+| Day 17: Consecutive lights                                                                       | Easy       | ✅     |                 |                  |
+| Day 18: Consecutive lights II                                                                    | Medium     | ✅     |                 |                  |
+| Day 19: Connecting flights                                                                       | Easy       | ✅     |                 |                  |
+| Day 20: Vertical warehouse                                                                       | Easy       | ✅     |                 |                  |
+| Day 21: Cleaning robot                                                                           | Medium     | ✅     |                 |                  |
+| Day 22: Maze                                                                                     | Hard       | ✅     | O(n)            | O(n)             |
+| Day 23: Shortest distance                                                                        | Medium     | ✅     |                 |                  |
+| Day 24: Mirror Trees                                                                             | Medium     | ✅     |                 |                  |
 
 ## Note on Space Complexity
 
