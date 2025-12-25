@@ -499,7 +499,9 @@ Move the robot on the 2D board (nested array), using a separate input string as 
 
 ### Time complexity
 
-_O(n + k)_ or equivalently _O(L + k)_ where _n_ is the number of cells on the board, and _L_ is the length of the original board represented as a string. The work is proportional to both the board size and control input string.
+_O(n + k)_ or equivalently _O(L + k)_ where _n_ is the number of cells on the board, and _L_ is the length of the original board represented as a string, _k_ is the control string length.
+
+The work is proportional to both the board size and control input string.
 
 ### Space complexity
 
