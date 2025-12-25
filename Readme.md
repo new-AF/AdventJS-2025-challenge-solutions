@@ -1,3 +1,7 @@
+![Screenshot of most challenges solved](./hero.png)
+
+![TypeScript Badge](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=fff&style=for-the-badge)
+
 -   [Intro](#intro)
 -   [Structure](#structure)
 -   [Install](#install)
@@ -56,10 +60,6 @@
             -   [Example, classic loop](#example-classic-loop)
         -   [Tests](#tests)
             -   [Note](#note)
-
-![Screenshot of most challenges solved](./hero.png)
-
-![TypeScript Badge](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=fff&style=for-the-badge)
 
 # Intro
 
