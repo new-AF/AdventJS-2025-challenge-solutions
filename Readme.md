@@ -57,6 +57,10 @@
         -   [Tests](#tests)
             -   [Note](#note)
 
+![Screenshot of most challenges solved](./hero.png)
+
+![TypeScript Badge](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=fff&style=for-the-badge)
+
 # Intro
 
 I solved [AdventJS 2025 coding challenge](https://adventjs.dev/challenges/2025) using `TypeScript` and `Node.js` for both runtime and tests.
