@@ -17,7 +17,7 @@ Board:
 Input, and expected out:
 - D (Down), robot ended on empty spot (.), having exhausted all input returns 'fail'.
 - U (Up), picked up something (*), returns 'success' immediately
-- RU (Right,Up), hit obstacle (#), returns 'crash' immediately
+- RU (Right, Up), hit obstacle (#), returns 'crash' immediately
 
 Solution:
 - Convert string board to 2D array
@@ -92,7 +92,7 @@ export const moveReno = (board: Board, moves: Moves): Result => {
         robotCoordinates: Coordinate;
     };
 
-    // convert to 2d array. Space complexity: O(m * n)
+    // convert to 2d array. Space complexity: O(L) or equivalently O(n) where n is number of cells on the board
     newBoard.array2d = board
         .trim()
         .split("\n")

@@ -1,4 +1,4 @@
-![Screenshot of most challenges solved](./hero.png)
+![Screenshot of most challenges solved](.github/images/compress/hero.png)
 
 ![TypeScript Badge](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=fff&style=for-the-badge)
 
@@ -7,7 +7,6 @@
 -   [Install](#install)
     -   [Run Individual Tests](#run-individual-tests)
     -   [Run All Tests](#run-all-tests)
--   [Overview](#overview)
     -   [Day 1: Filter gift strings containing '#'](#day-1-filter-gift-strings-containing-)
         -   [The Challenge](#the-challenge)
         -   [My Solution](#my-solution)
@@ -50,16 +49,56 @@
         -   [Space Complexity](#space-complexity-7)
         -   [Improvements](#improvements)
     -   [Day 9: Move robot](#day-9-move-robot)
+        -   [The Challenge](#the-challenge-8)
+            -   [Example:](#example)
+                -   [1) Board](#1-board)
+                -   [2) Control string](#2-control-string)
+        -   [My Solution](#my-solution-8)
+        -   [Time complexity](#time-complexity-8)
+        -   [Space complexity](#space-complexity-8)
     -   [Day 13: Assembly board](#day-13-assembly-board)
         -   [Challenge](#challenge)
             -   [Input example](#input-example)
         -   [Solution](#solution)
             -   [Code](#code)
-        -   [Time complexity](#time-complexity-8)
-        -   [Space complexity](#space-complexity-8)
+        -   [Time complexity](#time-complexity-9)
+        -   [Space complexity](#space-complexity-9)
             -   [Example, classic loop](#example-classic-loop)
         -   [Tests](#tests)
             -   [Note](#note)
+
+## Overview
+
+| Day                                            | Difficulty | Solved | Time Complexity | Space Complexity |
+| ---------------------------------------------- | ---------- | ------ | --------------- | ---------------- |
+| Day 1: Filter gift strings containing '#'      | Easy       | ✅     | O(L)            | O(n)             |
+| Day 2: Make q total gifts from n object orders | Easy       | ✅     | O(n + q)        | O(n + q)         |
+| Day 3: Draw square gift perimeter              | Easy       | ✅     | O(n^2)          | O(n^2)           |
+| Day 4: Decipher pin from cyphered tokens       | Medium     | ✅     | O(L)            | O(L)             |
+| Day 5: Countdown                               | Easy       | ✅     | O(L)            | O(1)             |
+| Day 6: Matching gloves                         | Easy       | ✅     | O(n)            | O(k)             |
+| Day 7: Draw a custom tree                      | Medium     | ✅     | O(h^2)          | O(h^2)           |
+| Day 8: Find first non-repeating letter         | Easy       | ✅     | O(n)            | O(n)             |
+| Day 9: Move robot                              | Hard       | ✅     | O(m\*n + k)     | O(m\*n)          |
+| Day 10: Depth                                  | Easy       | ✅     |                 |                  |
+| Day 11: Unwatched gifts                        | Easy       | ✅     |                 |                  |
+| Day 12: Elf battle                             | Medium     | ✅     |                 |                  |
+| Day 13 Assembly board                          | Medium     | ✅     |                 |                  |
+| Day 14: Gift path                              | Easy       | ✅     |                 |                  |
+| Day 15: Draw table                             | Medium     | ✅     |                 |                  |
+| Day 16 Packing gifts                           | Easy       | ✅     |                 |                  |
+| Day 17: Consecutive lights                     | Easy       | ✅     |                 |                  |
+| Day 18: Consecutive lights II                  | Medium     | ✅     |                 |                  |
+| Day 19: Connecting flights                     | Easy       | ✅     |                 |                  |
+| Day 20: Vertical warehouse                     | Easy       | ✅     |                 |                  |
+| Day 21: Cleaning robot                         | Medium     | ✅     |                 |                  |
+| Day 22: Maze                                   | Hard       | ✅     | O(n)            | O(n)             |
+| Day 23: Shortest distance                      | Medium     | ✅     |                 |                  |
+| Day 24: Mirror Trees                           | Medium     | ✅     |                 |                  |
+
+## Note on Space Complexity
+
+Space complexity in this document means _Auxiliary space_, i.e. space reserved for the algorithm itself including the output, but _without_ the input space itself.
 
 # Intro
 
@@ -103,36 +142,6 @@ pnpm day-8-non-repeating-letter
 ```bash
 pnpm test
 ```
-
-# Overview
-
-| Day                                            | Difficulty | Solved | Time Complexity | Space Complexity |
-| ---------------------------------------------- | ---------- | ------ | --------------- | ---------------- |
-| Day 1: Filter gift strings containing '#'      | Easy       | ✅     | O(L)            | O(n)             |
-| Day 2: Make q total gifts from n object orders | Easy       | ✅     | O(n + q)        | O(n + q)         |
-| Day 3: Draw square gift perimeter              | Easy       | ✅     | O(n^2)          | O(n^2)           |
-| Day 4: Decipher pin from cyphered tokens       | Medium     | ✅     | O(L)            | O(L)             |
-| Day 5: Countdown                               | Easy       | ✅     | O(L)            | O(1)             |
-| Day 6: Matching gloves                         | Easy       | ✅     | O(n)            | O(k)             |
-| Day 7: Draw a custom tree                      | Medium     | ✅     | O(h^2)          | O(h^2)           |
-| Day 8: Find first non-repeating letter         | Easy       | ✅     | O(n)            | O(n)             |
-| Day 9: Move robot                              | Hard       | ✅     | O(m\*n + k)     | O(m\*n)          |
-| Day 10: Depth                                  | Easy       | ✅     |                 |                  |
-| Day 11: Unwatched gifts                        | Easy       | ✅     |                 |                  |
-| Day 12: Elf battle                             | Medium     | ✅     |                 |                  |
-| Day 13 Assembly board                          | Medium     | ✅     |                 |                  |
-| Day 14: Gift path                              | Easy       | ✅     |                 |                  |
-| Day 15: Draw table                             | Medium     | ✅     |                 |                  |
-| Day 16 Packing gifts                           | Easy       | ✅     |                 |                  |
-| Day 17: Consecutive lights                     | Easy       | ✅     |                 |                  |
-| Day 18: Consecutive lights ii                  | Medium     | ✅     |                 |                  |
-| Day 19:                                        | Easy       |        |                 |                  |
-| Day 20: Vertical warehouse                     | Easy       | ✅     |                 |                  |
-| Day 21: Cleaning robot                         | Medium     | ✅     |                 |                  |
-| Day 22: Maze                                   | Hard       | ✅     | O(n)            | O(n)             |
-|                                                |            |        |                 |                  |
-
-> Space complexity means Auxiliary space, i.e. space reserved for the algorithm itself including the output, but _without_ the input space itself.
 
 ## Day 1: Filter gift strings containing '#'
 
@@ -195,7 +204,7 @@ Pretty straightforward too:
 
 ### Time complexity
 
-_O(n + q)_ where _q_ is the sum of all quantities, and _n_ the count of all objects. This is broken as O(n) for total objects work, in addition to O(q) for all elements produced.
+_O(n + q)_ where _n_ is the count of all objects, and _q_ is the sum of all quantities. This is broken as _O(n)_ for total objects work, in addition to _O(q)_ for all elements produced.
 
 The work is proportional to both the objects count and how many strings to produce.
 
@@ -443,7 +452,64 @@ This will explicitly tell if the string had any non-repeating letters. If all th
 
 ## Day 9: Move robot
 
-// TBW
+![Screenshot of problem 9 solvedhero](.github/images/compress/day-9-move-robot.png)
+
+### The Challenge
+
+Move the robot on the 2D board (nested array), using a separate input string as control. The board has the following element types:
+
+-   `@` is our robot
+-   `*` is something to pick, return `'success'` immediately.
+-   `#` is obstacle , return `'crash'` immediately, or when robot goes outside board.
+-   `.` is an empty spot, exhaust input and return `'fail'` if robot ends here.
+
+#### Example:
+
+##### 1) Board
+
+```
+.....
+.*#.*
+.@...
+.....
+```
+
+##### 2) Control string
+
+| Input              | Expected Return                                                                  |
+| ------------------ | -------------------------------------------------------------------------------- |
+| `'D'` (Down)       | `'fail'` because robot ended on empty spot (`'.'`), having exhausted all input   |
+| `'U'` (Up)         | `'success'` immediately, because the robot picked up picked up something (`'*'`) |
+| `'RU'` (Right, Up) | `'crash'` immediately, because the robot hit an obstacle (`'#'`)                 |
+
+### My Solution
+
+-   Convert board from one giant string to a 2D nested array (`string[][]`)
+
+    > Both Time and space complexity are _O(L)_ where _L_ is the length of the original string, or equivalenty _O(n)_ where _n_ is the count of cells on the board. The work done is proprtional to the number of cells on the board.
+
+-   Find initial robot location, linear sweep. Time complexity is _O(n)_ or equivalently _O(L)_
+
+-   `.map` the ambiguous control characters (`'U'`) into readable TypeScript enums (`BoardMove.Up`)
+
+    > Both Time and space complexity are _O(k)_ where _k_ is the length of the control string.
+
+-   Follow control moves, and apply result logic.
+    > Time complexity is _O(k)_ where _k_ is the length of the control string. There is no loop detection because that would violate the problem description, so _k_ is unbounded by _n_ the number of cells.
+
+### Time complexity
+
+_O(n + k)_ or equivalently _O(L + k)_ where _n_ is the number of cells on the board, and _L_ is the length of the original board represented as a string. The work is proportional to both the board size and control input string.
+
+### Space complexity
+
+_O(n + k)_ or equivalently _O(L + k)_ The is broken as:
+
+-   _O(n)_ to convert the original string board to a 2D nested array.
+
+-   _O(k)_ to convert the control string to a 1D array and `.map` the characters to enumns.
+
+Had we traded off readability by not implementing those 2 steps and hence increased the likelihood of bugs in order to save on memory, then the Space complexity would be _O(1)_
 
 ## Day 13: Assembly board
 
