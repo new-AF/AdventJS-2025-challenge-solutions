@@ -79,7 +79,7 @@
 | Day 6: Matching gloves                         | Easy       | ✅     | O(n)            | O(k)             |
 | Day 7: Draw a custom tree                      | Medium     | ✅     | O(h^2)          | O(h^2)           |
 | Day 8: Find first non-repeating letter         | Easy       | ✅     | O(n)            | O(n)             |
-| Day 9: Move robot                              | Hard       | ✅     | O(m\*n + k)     | O(m\*n)          |
+| Day 9: Move robot                              | Hard       | ✅     | O(L + k)        | O(L + k)         |
 | Day 10: Depth                                  | Easy       | ✅     |                 |                  |
 | Day 11: Unwatched gifts                        | Easy       | ✅     |                 |                  |
 | Day 12: Elf battle                             | Medium     | ✅     |                 |                  |
