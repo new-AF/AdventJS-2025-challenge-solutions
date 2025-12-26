@@ -102,7 +102,7 @@
 | Day 22: Maze                                                                                     | Hard       | ✅     | O(n)            | O(n)             |
 | Day 23: Shortest distance                                                                        | Medium     | ✅     |                 |                  |
 | Day 24: Mirror Trees                                                                             | Medium     | ✅     |                 |                  |
-| [Day 25: Small Lang](#day-25-small-lang)                                                         | Medium     | ✅     | O(n)            | O(n)             |
+| [Day 25: Small Lang](#day-25-small-lang)                                                         | Medium     | ✅     | O(n + T)        | O(n)             |
 
 ## Note on Space Complexity
 
@@ -922,18 +922,18 @@ The solution consists of 2 passes:
 
 We have shown the main loop before, it doesn't have any indexing manipulation logic, it relies one the state function to do that, and it runs as long as the `tapeIndex` is within bounds, which means it can go forward or backward, and also run indefinitely if the program is encodes an infinite loop:
 
-    ```ts
-    // run the program the program, as long as there are instructions
-    while (currentState.tapeIndex < code.length) {
-        const { type, _ } = allTokens[currentState.tapeIndex];
-        const transform = tokenTypeToStateFunction[type];
-        const nextState = transform(currentState, globalJumpTable);
-        currentState = nextState;
-    }
+```ts
+// run the program the program, as long as there are instructions
+while (currentState.tapeIndex < code.length) {
+    const { type, _ } = allTokens[currentState.tapeIndex];
+    const transform = tokenTypeToStateFunction[type];
+    const nextState = transform(currentState, globalJumpTable);
+    currentState = nextState;
+}
 
-    // return final value
-    return currentState.value;
-    ```
+// return final value
+return currentState.value;
+```
 
 > The time complexity is _O(T)_ where _T_ is the total number of instructions executed encoded within the program itself, not the number of tokens of the static program.
 
