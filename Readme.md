@@ -801,8 +801,8 @@ Gets converted to below:
 Build a single counter machine, which consumes an input string (encoded program), and returns the value of the single counter. Each character in the input string is an instruction as following:
 
 -   `">"` is effectively the keyword `continue` in programming languages, it does nothing but but advance to the next character/instruction. -`"+"`: _Increments_ the single counter,
--   `"+"`: _Increments_ the single counter, and moves onto the next instruction,
--   `"-"`: _Decrement_ the single counter, and moves onto the next instruction,
+-   `"+"`: _Increments_ the single counter value, and moves onto the next instruction,
+-   `"-"`: _Decrement_ the single counter value, and moves onto the next instruction,
 -   `"["`: _Loop Start_, marks the beginning of loop, you can think of it as a simplified `while` which operates as following:
     -   If the single counter is `0` (effectively `false`) it _jumps_ to the end of the loop (`"]"`) and onto the instruction after.
     -   If the single counter is not zero, it _enters_ the loops and executes the instructions contained there.
