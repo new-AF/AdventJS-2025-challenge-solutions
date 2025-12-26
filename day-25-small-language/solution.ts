@@ -89,7 +89,7 @@ export const execute = (code: string): number => {
                 tapeIndex: tapeIndex + 1,
             };
         },
-        // loop, check if value is 0, jump to end of loop, otherwise advance
+        // handling looping, check if value is 0, jump to end of loop, otherwise advance
         [TokenType.Loop_Start]: (
             currentState: State,
             passedJumpTable: JumpTable

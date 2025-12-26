@@ -69,6 +69,8 @@
     -   [Day 25: Small Lang](#day-25-small-lang)
         -   [The Challenge](#the-challenge-9)
         -   [My Solution](#my-solution-9)
+            -   [Pass 1: Building the _Jump Table_](#pass-1-building-the-jump-table)
+            -   [Pass 2: The main `while` loop](#pass-2-the-main-while-loop)
         -   [Time complexity](#time-complexity-10)
         -   [Space complexity](#space-complexity-10)
 
@@ -818,6 +820,135 @@ For example:
 
 ### My Solution
 
+While similar to _BrainF---_, _Small Lang_ is different because it is _not_ Turing-complete, while _BF_ is.
+
+Turing completeness meaning you can program arbitrary _functions_ like the Fibonacci sequence, and for that feature you need at least 2 counters, but we only have 1. But this doesn't mean we can't do some useful things like we'll show later.
+
+The solution consists of 2 passes:
+
+1. Building the _Jump Table_ this enables looping and conditional checks.
+2. The main `while` running the program through the _State Functions._
+
+-   We model our machine as a simple state object that contains the current reading head index, and the single value counter (that we return later.):
+
+    ```ts
+    // our machine state
+    type State = {
+        tapeIndex: number;
+        value: number;
+    };
+
+    let currentState: State = {
+        tapeIndex: 0,
+        value: 0,
+    };
+    ```
+
+    > `tapeIndex` alone determines how the machine operates.
+
+-   For each of the token types, we define a _corresponding_ function that takes 1) the current state of the machine, 2) the _Jump Table_, returns the _new state_, containing the new read index and the single value counter:
+
+    ```ts
+    // produce our next state
+    type StateFunction = (state: State, globalJumpTable: JumpTable) => State;
+
+    // handling looping, check if value is 0, jump to end of loop, otherwise advance
+    (currentState: State, passedJumpTable: JumpTable): State => {
+        const { value, tapeIndex } = currentState;
+
+        // jump to end of loop
+        if (value === 0) {
+            // malformed input
+            if (!passedJumpTable.has(tapeIndex)) {
+                raiseMalformedInput();
+            }
+
+            const loopEnd = passedJumpTable.get(tapeIndex);
+            const nextIndex = loopEnd.index;
+
+            return { value, tapeIndex: nextIndex };
+        }
+
+        // else enter the loop, move to next instruction
+        return { value, tapeIndex: tapeIndex + 1 };
+    };
+    ```
+
+-   We run a simple `while` as long as there are tokens available, feed then into the state function, and update the state:
+
+    ```ts
+    // run the program the program, as long as there are instructions
+    while (currentState.tapeIndex < code.length) {
+        const { type, _ } = allTokens[currentState.tapeIndex];
+        const transform = tokenTypeToStateFunction[type];
+        const nextState = transform(currentState, globalJumpTable);
+        currentState = nextState;
+    }
+
+    // return final value
+    return currentState.value;
+    ```
+
+#### Pass 1: Building the _Jump Table_
+
+-   We use a _Stack_ to handle arbitrarily nesting of loops and conditions, e.g.:
+
+    ```ts
+    {
+        input: "+{[-]+}+",
+        expectedOutput: 2
+    }
+    ```
+
+-   We iterate over the now tokens array `Tokens[]` and as soon we encounter the _opening_ token: either `TokenType.Loop_Start` or `TokenType.If_Start` we _push_ them onto the stack. The `Token` also contains the `index` so this will be handy later.
+
+-   We continue iterating, we continue iterating and as soon we find the _closing_ token: `TokenType.Loop_End` or `TokenType.If_End` we _pop_ the last token:
+
+    -   To avoid processing malformed inputs like `"{]"`, We inspect the popped token to ensure it mirrors the current token.
+
+    -   If the tokens mirror each other, we _insert_ them into the table. e.g.:
+
+    ```ts
+    // in case we need to skip over the loop; jump[start] = end
+    globalJumpTable.set(loopStart.index, token);
+
+    // in case we need to loop back; jump[end] = start
+    globalJumpTable.set(index, loopStart);
+    ```
+
+    > Both Time and Spce complexity for building the _Jump Table_ is _O(n/2)_ or O(n) because the most insertions we do is _n/2_ because in the worst case of well formed input e.g. `{{}}` we'll processing half the tokens array.
+
+#### Pass 2: The main `while` loop
+
+We have shown the main loop before, it doesn't have any indexing manipulation logic, it relies one the state function to do that, and it runs as long as the `tapeIndex` is within bounds, which means it can go forward or backward, and also run indefinitely if the program is encodes an infinite loop:
+
+    ```ts
+    // run the program the program, as long as there are instructions
+    while (currentState.tapeIndex < code.length) {
+        const { type, _ } = allTokens[currentState.tapeIndex];
+        const transform = tokenTypeToStateFunction[type];
+        const nextState = transform(currentState, globalJumpTable);
+        currentState = nextState;
+    }
+
+    // return final value
+    return currentState.value;
+    ```
+
+> The time complexity is _O(T)_ where _T_ is the total number of instructions executed encoded within the program itself, not the number of tokens of the static program.
+
 ### Time complexity
 
+_O(n + T)_ where _n_ is the number of tokens of the static program (size of the program), while _T_ is the number of instructions encoded in the program itself.
+
+_O(T)_ describes the work done by our machine which directly reflects the behavior of the _encoded program_ itself, If the program encodes a _linear_ algorithm, our machine will run in _linear_ time, if the encoded algorithm is _exponential_ our machine will take _exponential_ time to complete, If the program encodes an _infinite_ loop, our machine will _never halt_.
+
+In short our solution _O(n + T)_ reflects 1) the work done by building the machine _O(n)_ including constructing the _Jump Table_, and 2) _O(T)_ the cost of running the machine which is entirely determined by the growth behavior of the encoded program itself. Our solution grows independently with respect to both variables.
+
 ### Space complexity
+
+_O(n)_ where _n_ is the number of tokens in the static program, or size of the program, and this accounts for:
+
+-   _O(n)_ the size of the array used to convert the the string characters to `Token`s
+-   _O(n)_ the size of the _Jump Table_
+-   _O(n)_ the size of the stack used to construct the _Jump Table_
