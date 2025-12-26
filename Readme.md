@@ -796,6 +796,8 @@ Gets converted to below:
 
 ## Day 25: Small Lang
 
+![Screenshot of Small Lang printing Hello World](.github/images/compress/Small-Lang.png)
+
 ### The Challenge
 
 Build a single counter machine, which consumes an input string (encoded program), and returns the value of the single counter. Each character in the input string is an instruction as following:
