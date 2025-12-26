@@ -66,6 +66,11 @@
             -   [Example, classic loop](#example-classic-loop)
         -   [Tests](#tests)
             -   [Note](#note)
+    -   [Day 25: Small Lang](#day-25-small-lang)
+        -   [The Challenge](#the-challenge-9)
+        -   [My Solution](#my-solution-9)
+        -   [Time complexity](#time-complexity-10)
+        -   [Space complexity](#space-complexity-10)
 
 ## Overview
 
@@ -95,6 +100,7 @@
 | Day 22: Maze                                                                                     | Hard       | ✅     | O(n)            | O(n)             |
 | Day 23: Shortest distance                                                                        | Medium     | ✅     |                 |                  |
 | Day 24: Mirror Trees                                                                             | Medium     | ✅     |                 |                  |
+| [Day 25: Small Lang](#day-25-small-lang)                                                         | Medium     | ✅     | O(n)            | O(n)             |
 
 ## Note on Space Complexity
 
@@ -769,3 +775,49 @@ Gets converted to below:
     expectedOutput: "loop",
 }
 ```
+
+## Day 25: Small Lang
+
+### The Challenge
+
+Build a single counter machine, which consumes an input string (encoded program), and returns the value of the single counter. Each character in the input string is an instruction as following:
+
+-   `">"` is effectively the keyword `continue` in programming languages, it does nothing but but advance to the next character/instruction. -`"+"`: _Increments_ the single counter,
+-   `"-"`: _Decrement_ the single counter,
+-   `"["`: _Loop Start_, marks the beginning of loop, you can think of it as a simplified `while` which operates as following:
+    -   If the single counter is `0` (effectively `false`) it _jumps_ to the end of the loop (`"]"`) and onto the instruction after.
+    -   If the single counter is not zero, it _enters_ the loops and executes the instructions contained there.
+        -   For example `"--[++]` enters the loops when the counter is `-2` and loops incrementing until it's `0`.
+        -   Be careful though, the input program can continue infinite loops, as in the case of real world programs, but this is not your problem anymore.
+-   `"]"`: _Loop End_, at this point, you need to check the single counter value-
+    -   If it is `0`, you end looping and _move_ onto the next instruction.
+    -   If it not zero, you _jump_ back to `"["`, continue looping, and so forth.
+-   `"{"`: _Condition Check Start_, effectively an `if` statement:
+    -   If the single counter is `0` this means `false` and you _jump_ to the end of the condition `"}"`
+    -   If it is not zero, you enter the code block and execute the instructions contained there.
+        -   For example: `"+{---}"` returns `-2` because you entered when the value is `1` and ran the instructions contained there.
+-   `"}"`: _Condition Check End_, you don't do anything here and move onto the next instruction.
+    > There is no jumping back, or looping inherent into the condition itself, it executes 0 or 1 times.
+
+For example:
+
+```ts
+[
+    { input: "+++", expectedOutput: 3 },
+    { input: "+--", expectedOutput: -1 },
+    { input: ">+++[-]", expectedOutput: 0 },
+    { input: ">>>+{++}", expectedOutput: 3 },
+    { input: "+{[-]+}+", expectedOutput: 2 },
+    { input: "{+}{+}{+}", expectedOutput: 0 },
+    { input: "------[+]++", expectedOutput: 2 },
+    { input: "-[++{-}]+{++++}", expectedOutput: 5 },
+    { input: "-[+{+}]+", expectedOutput: 1 },
+    { input: "[{}]", expectedOutput: 0 },
+];
+```
+
+### My Solution
+
+### Time complexity
+
+### Space complexity
