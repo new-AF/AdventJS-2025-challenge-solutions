@@ -5,6 +5,7 @@
 -   [Intro](#intro)
 -   [Structure](#structure)
 -   [Install](#install)
+    -   [Running the extended Small Lang, the last solution](#running-the-extended-small-lang-the-last-solution)
     -   [Run Individual Tests](#run-individual-tests)
     -   [Run All Tests](#run-all-tests)
     -   [Day 1: Filter gift strings containing '#'](#day-1-filter-gift-strings-containing-)
@@ -73,6 +74,9 @@
             -   [Pass 2: The main `while` loop](#pass-2-the-main-while-loop)
         -   [Time complexity](#time-complexity-10)
         -   [Space complexity](#space-complexity-10)
+        -   [Extending the language to print stuff](#extending-the-language-to-print-stuff)
+            -   [Printing "Hello World!"](#printing-hello-world)
+                -   [Output](#output)
 
 ## Overview
 
@@ -135,6 +139,18 @@ git clone https://github.com/new-AF/AdventJS-2025-challenge-solutions
 cd AdventJS-2025-challenge-solutions
 
 pnpm install
+```
+
+## Running the extended Small Lang, the last solution
+
+```bash
+
+pnpm day-25-small-language-extended
+
+# outputs
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++!+++++++++++++++++++++++++++++!+++++++!!+++!-------------------------------------------------------------------------------!+++++++++++++++++++++++++++++++++++++++++++++++++++++++!++++++++++++++++++++++++!+++!------!--------!-------------------------------------------------------------------!
+# Hello World!
+
 ```
 
 ## Run Individual Tests
@@ -952,3 +968,60 @@ _O(n)_ where _n_ is the number of tokens in the static program, or size of the p
 -   _O(n)_ the size of the array used to convert the the string characters to `Token`s
 -   _O(n)_ the size of the _Jump Table_
 -   _O(n)_ the size of the stack used to construct the _Jump Table_
+
+### Extending the language to print stuff
+
+Because how we structured the solution, as series of _State Functions_ it's easy to add a _printing functionality_.
+
+We will designate the character `"!"` to print the single counter as ASCII character.
+
+The State Function is the first one to have a _side-effect_ as it will print the ASCII character to the console, and advance the character.
+
+#### Printing "Hello World!"
+
+```bash
+
+pnpm day-25-small-language-extended
+
+```
+
+##### Output
+
+```
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++!+++++++++++++++++++++++++++++!+++++++!!+++!-------------------------------------------------------------------------------!+++++++++++++++++++++++++++++++++++++++++++++++++++++++!++++++++++++++++++++++++!+++!------!--------!-------------------------------------------------------------------!
+
+Hello World!
+
+```
+
+This is broken as the joined string of the individual characters
+
+```ts
+[
+    // H=72
+    "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++!",
+    //  +29; e=101
+    "+++++++++++++++++++++++++++++!",
+    // +7; l=108
+    "+++++++!",
+    // l=108 again
+    "!",
+    // +3; o=111
+    "+++!",
+    // -79; space=32
+    "-------------------------------------------------------------------------------!",
+    // +55; W=87
+    "+++++++++++++++++++++++++++++++++++++++++++++++++++++++!",
+    // +24; o=111
+    "++++++++++++++++++++++++!",
+    // +3; r=114
+    "+++!",
+    // -6; l=108
+    "------!",
+    // -8; d=100
+    "--------!",
+    // -67; !=33
+    "-------------------------------------------------------------------!",
+];
+```
