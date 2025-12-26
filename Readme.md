@@ -5,7 +5,7 @@
 -   [Intro](#intro)
 -   [Structure](#structure)
 -   [Install](#install)
-    -   [Running the extended Small Lang, the last solution](#running-the-extended-small-lang-the-last-solution)
+    -   [Running extended Small Lang, the last solution](#running-extended-small-lang-the-last-solution)
     -   [Run Individual Tests](#run-individual-tests)
     -   [Run All Tests](#run-all-tests)
     -   [Day 1: Filter gift strings containing '#'](#day-1-filter-gift-strings-containing-)
@@ -141,7 +141,7 @@ cd AdventJS-2025-challenge-solutions
 pnpm install
 ```
 
-## Running the extended Small Lang, the last solution
+## Running extended Small Lang, the last solution
 
 ```bash
 
